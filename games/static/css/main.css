@@ -1,25 +1,147 @@
 #header {
-  padding: 20px;
-  background: 	#E6E6FA;
-  border-bottom: 1px solid #e0e4e8;
-  font-size: 25px;
+  padding: 17px;
+    color: white;
+  background: #232424;
+  border-bottom: 5px solid #f5cf67;
+  font-size: 28px;
   font-weight: bold;
   text-align: center;
 }
 
+div.content {
+  margin-left: 175px;
+  padding: 1px 16px;
+}
+
+body {
+    background-color: #2f3030;
+    font-size: 15px;
+    color: #dae0e0;
+}
+
+h2 {
+    font-family: 'Courier';
+    font-weight: bold;
+    font-size: 25px;
+    color: #93edec;
+}
+
+h3 {
+    font-family: 'Courier';
+    font-weight: bold;
+    font-size: 40px;
+    color: #93edec;
+}
+
 .copyright {
-  color: black;
-  font-size: 0.9em;
+  color: #dae0e0;
+  font-size: 0.7em;
 }
 
 .description p i {
-    font-family: 'Gill Sans';
+    font-family: 'Courier';
     font-weight: bold;
-    font-size: 18px;
+    font-size: 16px;
     text-transform: uppercase;
-    color:darkslateblue
+    color: #f5cf67
     }
 
 .description img {
         vertical-align: top;
+        height: 230px;
     }
+
+tr:hover {
+    background-color: #646666
+}
+tr {
+    background-color: #232424
+}
+
+table {
+    border-collapse: collapse;
+}
+th, td {
+    border-bottom: 10px solid #2f3030;
+    text-align: left;
+}
+
+a {
+    color: #dae0e0;
+    text-decoration: None
+}
+
+.sidebar {
+  margin: 0;
+  padding: 0;
+  width: 180px;
+  background-color: #232424;
+  position: fixed;
+  height: 98%;
+  overflow: auto;
+}
+
+.sidebar a {
+  display: block;
+  color: #dae0e0;
+  padding: 15px;
+  text-decoration: none;
+    height: 15px
+}
+
+.sidebar a:hover {
+  background-color: #f5cf67;
+  color: #232424;
+    font-family: 'Courier';
+    text-align: center;
+    font-size: 16px;
+    font-weight: bold;
+}
+
+.sidebar ab {
+  display: block;
+    padding-top: 35px;
+    padding-bottom: 25px;
+    text-align: center;
+}
+
+.sidebar footer {
+    color: #dae0e0;
+    padding: 10px;
+    position:absolute;
+    bottom:0;
+}
+
+
+
+
+.topnav {
+    overflow: hidden;
+  background-color: #2f3030;
+}
+
+.topnav .search-container {
+    float: left;
+}
+
+.topnav input[type=text] {
+  padding: 8px;
+  margin-top: 8px;
+  font-size: 17px;
+  border: none;
+}
+
+.topnav .search-container button {
+  float: right;
+  padding: 8px;
+  margin-top: 8px;
+  margin-right: 16px;
+  background: #93edec;
+  font-size: 17px;
+  border: none;
+  cursor: pointer;
+}
+
+.topnav .search-container button:hover {
+  background: #f5cf67;
+}
