@@ -1,6 +1,6 @@
 from flask import Flask, render_template
 
-import classes
+from games.domainmodel import model
 
 app = Flask(__name__)
 
@@ -15,7 +15,7 @@ def show_gamedesc():
 @app.route('/games')
 def show_games():
     games_file_name = "static/games.csv"
-    reader = classes.GameFileCSVReader(games_file_name)
+    reader = domainmodel.GameFileCSVReader(games_file_name)
     reader.read_csv_file()
 
     listOfGames = []
