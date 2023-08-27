@@ -1,6 +1,8 @@
 from flask import Flask, render_template
 
 from games.domainmodel import model
+from games.adapters.datareader import csvdatareader
+from games.adapters import data
 
 app = Flask(__name__)
 
@@ -15,7 +17,7 @@ def show_gamedesc():
 @app.route('/games')
 def show_games():
     games_file_name = "static/games.csv"
-    reader = domainmodel.GameFileCSVReader(games_file_name)
+    reader = csvdatareader.GameFileCSVReader(games_file_name)
     reader.read_csv_file()
 
     listOfGames = []
