@@ -31,8 +31,8 @@
                     <Table>
                       {% for game in listOfGames %}
                         <tr>
-                            <td><a href="{{ url_for('show_gamedesc') }}" > <img src="{{ game.image }}" alt="game image"> </a></td>
-                            <td><a href="{{ url_for('show_gamedesc') }}">
+                            <td><a href="{{ url_for('show_gamedesc', gameToDisplay=game.id) }}" > <img src="{{ game.image }}" alt="game image"> </a></td>
+                            <td><a href="{{ url_for('show_gamedesc', gameToDisplay=game.id) }}">
                                 <h2>{{ game.name }}</h2>
                                 <div class="description">
                                 <p><i>Price:</i> ${{ game.price }}</p><p><i>Publishers:</i> {{ game.publishers }}</p><p><i>Release Date:</i>

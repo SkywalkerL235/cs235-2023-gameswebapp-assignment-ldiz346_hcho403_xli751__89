@@ -1,6 +1,6 @@
 """Initialize Flask app."""
 import games.adapters.datareader.csvdatareader
-from flask import Flask, render_template
+from flask import Flask, render_template, redirect, url_for
 
 from games.adapters.datareader.csvdatareader import GameFileCSVReader
 # TODO: Access to the games should be implemented via the repository pattern and using blueprints, so this can not
@@ -34,9 +34,32 @@ def create_app():
         #return render_template('gameDescription.html', game=some_game)
         return render_template('layout.html')
 
-    @app.route('/gamesDescription')
-    def show_gamedesc():
-        return render_template('gameDescription.html')
+    @app.route('/game/<gameToDisplay>')
+    def show_gamedesc(gameToDisplay):
+        game_id = int(gameToDisplay)
+
+        games_file_name = "games/adapters/data/games.csv"
+        reader = GameFileCSVReader(games_file_name)
+        reader.read_csv_file()
+        raw_games_list = reader.dataset_of_games
+
+        the_game = None
+
+        for game in raw_games_list:
+            if game.game_id == game_id:
+                the_game = {
+                    'name': game.title,
+                    'price': game.price,
+                    'image': game.image_url,
+                    'publishers': game.publisher,
+                    'date': game.release_date,
+                    'genres': game.genres,
+                    'reviews': len(game.reviews),
+                    'id': game.game_id
+                }
+                break
+
+        return render_template('gameDescription.html', gameToDisplay=the_game)
 
     @app.route('/games')
     def show_games():
@@ -46,7 +69,7 @@ def create_app():
         raw_games_list = reader.dataset_of_games
         listOfGames = []
 
-        for index in range(0, len(raw_games_list)):
+        for index in range(0, (len(raw_games_list))):
             game = raw_games_list[index]
             try:
                 Gamepart = {
@@ -56,7 +79,8 @@ def create_app():
                     'publishers': game.publisher,
                     'date': game.release_date,
                     'genres': game.genres,
-                    'reviews': len(game.reviews)
+                    'reviews': len(game.reviews),
+                    'id': game.game_id
                 }
                 listOfGames.append(Gamepart)
             except:
