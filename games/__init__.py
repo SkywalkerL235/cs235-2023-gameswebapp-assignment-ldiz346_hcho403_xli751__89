@@ -61,7 +61,7 @@ def create_app():
             finally:
                 pass
 
-        '''listOfGamesExample = [{
+        listOfGamesExample = [{
             'name': 'Oxygen Not Included',
             'price': '$24.99',
             'image': "https://cdn.akamai.steamstatic.com/steam/apps/457140/header_alt_assets_6.jpg?t=1654189805",
@@ -87,8 +87,8 @@ def create_app():
                 'date': 'Nov 30, 2010',
                 'genres': 'Indie',
                 'reviews': '0'
-            }]'''
+            }]
 
-        return render_template('games.html', listOfGames=listOfGames)
+        return render_template('games.html', listOfGames=listOfGamesExample)
 
     return app
