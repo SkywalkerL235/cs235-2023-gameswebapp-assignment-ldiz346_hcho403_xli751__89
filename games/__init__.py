@@ -46,7 +46,7 @@ def create_app():
         raw_games_list = reader.dataset_of_games
         listOfGames = []
 
-        for index in range(0, min(10, len(raw_games_list))):
+        for index in range(0, len(raw_games_list)):
             game = raw_games_list[index]
             try:
                 Gamepart = {
