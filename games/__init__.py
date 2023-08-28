@@ -40,28 +40,29 @@ def create_app():
 
     @app.route('/games')
     def show_games():
-        games_file_name = "static/games.csv"
+        games_file_name = "games/adapters/data/games.csv"
         reader = GameFileCSVReader(games_file_name)
         reader.read_csv_file()
-        listOfGames = [reader.dataset_of_games]
+        raw_games_list = reader.dataset_of_games
+        listOfGames = []
 
-        for index in range(0, reader.get_unique_games_count()):
-            game = listOfGames[index]
+        for index in range(0, min(10, len(raw_games_list))):
+            game = raw_games_list[index]
             try:
                 Gamepart = {
-                    'name': 'game.title',
-                    'price': 'game.price',
-                    'image': 'game.image_url',
-                    'publishers': 'game.publisher',
-                    'date': 'game.release_date',
-                    'genres': 'game.genres',
-                    'reviews': 'len(game.reviews)'
+                    'name': game.title,
+                    'price': game.price,
+                    'image': game.image_url,
+                    'publishers': game.publisher,
+                    'date': game.release_date,
+                    'genres': game.genres,
+                    'reviews': len(game.reviews)
                 }
                 listOfGames.append(Gamepart)
-            finally:
+            except:
                 pass
 
-        listOfGamesExample = [{
+        '''listOfGamesExample = [{
             'name': 'Oxygen Not Included',
             'price': '$24.99',
             'image': "https://cdn.akamai.steamstatic.com/steam/apps/457140/header_alt_assets_6.jpg?t=1654189805",
@@ -87,8 +88,8 @@ def create_app():
                 'date': 'Nov 30, 2010',
                 'genres': 'Indie',
                 'reviews': '0'
-            }]
+            }]'''
 
-        return render_template('games.html', listOfGames=listOfGamesExample)
+        return render_template('games.html', listOfGames=listOfGames)
 
     return app
