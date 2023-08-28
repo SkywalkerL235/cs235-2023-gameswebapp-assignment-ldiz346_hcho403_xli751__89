@@ -28,21 +28,21 @@
 
             <div id="container">
               <main id="main">
-                    <Table>
+                    <ul>
                       {% for game in listOfGames %}
-                        <tr>
-                            <td><a href="{{ url_for('show_gamedesc') }}" > <img src={{ game.image }} alt="game image"> </a></td>
-                            <td><a href="{{ url_for('show_gamedesc') }}">
+                        <li>
+                            <a href="{{ url_for('show_gamedesc') }}" > <img src={{ game.image }} alt="game image"> </a>
+                            <a href="{{ url_for('show_gamedesc') }}">
                                 <h2>{{ game.name }}</h2>
                                 <div class="description">
                                 <p><i>Price:</i> {{ game.price }}</p><p><i>Publishers:</i> {{ game.publishers }}</p><p><i>Release Date:</i>
                                   {{ game.date }}</p><p><i>Genres:</i> {{ game.genres }}</p><p><i>Reviews:</i>  ({{ game.reviews }})</p>
                                 </div>
-                            </a></td>
-                        </tr>
-                        <br>
+                            </a>
+                        </li>
+
                       {% endfor %}
-                    </Table>
+                    </ul>
               </main>
             </div>
     </div>

@@ -1,4 +1,4 @@
-from flask import Flask, render_template
+'''from flask import Flask, render_template
 
 from games.domainmodel import model
 from games.adapters.datareader import csvdatareader
