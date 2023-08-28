@@ -55,7 +55,8 @@ def create_app():
                     'date': game.release_date,
                     'genres': game.genres,
                     'reviews': len(game.reviews),
-                    'id': game.game_id
+                    'id': game.game_id,
+                    'about': game.description
                 }
                 break
 
@@ -80,7 +81,8 @@ def create_app():
                     'date': game.release_date,
                     'genres': game.genres,
                     'reviews': len(game.reviews),
-                    'id': game.game_id
+                    'id': game.game_id,
+                    'about': game.description
                 }
                 listOfGames.append(Gamepart)
             except:

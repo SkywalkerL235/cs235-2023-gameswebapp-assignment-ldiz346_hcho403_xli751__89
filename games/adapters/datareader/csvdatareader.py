@@ -31,6 +31,9 @@ class GameFileCSVReader:
                     self.__dataset_of_publishers.add(publisher)
                     game.publisher = publisher
 
+                    game.__reviews = row["Reviews"].split("â€")
+
+
                     genre_names = row["Genres"].split(",")
                     for genre_name in genre_names:
                         genre = Genre(genre_name.strip())
