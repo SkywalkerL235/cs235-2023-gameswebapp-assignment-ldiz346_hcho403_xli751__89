@@ -1,6 +1,6 @@
 """Initialize Flask app."""
 import games.adapters.datareader.csvdatareader
-from flask import Flask, render_template, redirect, url_for
+from flask import Flask, render_template, redirect, url_for, request
 
 from games.adapters.datareader.csvdatareader import GameFileCSVReader
 # TODO: Access to the games should be implemented via the repository pattern and using blueprints, so this can not
@@ -133,5 +133,49 @@ def create_app():
             }]'''
 
         return render_template('games.html', listOfGames=listOfGames)
+    @app.route('/search', methods = ["POST","GET"])
+    def show_search():
+        games_file_name = "games/adapters/data/games.csv"
+        reader = GameFileCSVReader(games_file_name)
+        reader.read_csv_file()
+        raw_games_list = reader.dataset_of_games
+        listOfGames = []
+
+        for index in range(0, (len(raw_games_list))):
+            game = raw_games_list[index]
+            try:
+                list_of_genres = game.genres
+                official_genre_string = ', '.join(part.genre_name for part in list_of_genres)
+
+                if game.price == 0.0:
+                    price_string = "Free to play"
+                else:
+                    price_string = "$" + str(game.price)
+
+                Gamepart = {
+                    'name': game.title,
+                    'price': price_string,
+                    'image': game.image_url,
+                    'publishers': game.publisher.publisher_name,
+                    'date': game.release_date,
+                    'genres': official_genre_string,
+                    'reviews': len(game.reviews),
+                    'id': game.game_id,
+                    'about': game.description
+                }
+                listOfGames.append(Gamepart)
+            except:
+                pass
+        search_list = []
+        if request.method == "POST":
+            target = request.form["search"]
+            if target != "":
+                for game in listOfGames:
+                    if target in game['name']:
+                        search_list.append(game)
+
+            return render_template('search.html', listOfSearches = search_list, target = target, amount_result = len(search_list))
+        else:
+            return render_template('search.html', listOfSearches = [], target = "", amount_result = 0)
 
     return app
