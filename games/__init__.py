@@ -47,13 +47,21 @@ def create_app():
 
         for game in raw_games_list:
             if game.game_id == game_id:
+                list_of_genres = game.genres
+                official_genre_string = ', '.join(part.genre_name for part in list_of_genres)
+
+                if game.price == 0.0:
+                    price_string = "Free to play"
+                else:
+                    price_string = "$" + str(game.price)
+
                 the_game = {
                     'name': game.title,
-                    'price': game.price,
+                    'price': price_string,
                     'image': game.image_url,
-                    'publishers': game.publisher,
+                    'publishers': game.publisher.publisher_name,
                     'date': game.release_date,
-                    'genres': game.genres,
+                    'genres': official_genre_string,
                     'reviews': len(game.reviews),
                     'id': game.game_id,
                     'about': game.description
@@ -73,13 +81,21 @@ def create_app():
         for index in range(0, (len(raw_games_list))):
             game = raw_games_list[index]
             try:
+                list_of_genres = game.genres
+                official_genre_string = ', '.join(part.genre_name for part in list_of_genres)
+
+                if game.price == 0.0:
+                    price_string = "Free to play"
+                else:
+                    price_string = "$" + str(game.price)
+
                 Gamepart = {
                     'name': game.title,
-                    'price': game.price,
+                    'price': price_string,
                     'image': game.image_url,
-                    'publishers': game.publisher,
+                    'publishers': game.publisher.publisher_name,
                     'date': game.release_date,
-                    'genres': game.genres,
+                    'genres': official_genre_string,
                     'reviews': len(game.reviews),
                     'id': game.game_id,
                     'about': game.description
