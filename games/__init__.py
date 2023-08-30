@@ -131,8 +131,8 @@ def create_app():
                 'genres': 'Indie',
                 'reviews': '0'
             }]'''
-
-        return render_template('games.html', listOfGames=listOfGames)
+        unique_genres = get_unique_genres()
+        return render_template('games.html', listOfGames=listOfGames, unique_genres=unique_genres)
     @app.route('/search', methods = ["POST","GET"])
     def show_search():
         games_file_name = "games/adapters/data/games.csv"
@@ -166,6 +166,7 @@ def create_app():
                 listOfGames.append(Gamepart)
             except:
                 pass
+        unique_genres = get_unique_genres()
         search_list = []
         if request.method == "POST":
             target = request.form["search"]
@@ -174,9 +175,11 @@ def create_app():
                     if target in game['name']:
                         search_list.append(game)
 
-            return render_template('search.html', listOfSearches = search_list, target = target, amount_result = len(search_list))
+
+
+            return render_template('search.html', listOfSearches = search_list, target = target, amount_result = len(search_list), unique_genres=unique_genres)
         else:
-            return render_template('search.html', listOfSearches = [], target = "", amount_result = 0)
+            return render_template('search.html', listOfSearches = [], target = "", amount_result = 0, unique_genres=unique_genres)
 
     @app.route('/filtered_games/<selected_genre>')
     def filter_by_genre(selected_genre):
@@ -211,8 +214,8 @@ def create_app():
                     listofgames.append(Gamepart)
             except:
                 pass
-
-        return render_template('filtered_games.html', filtered_games=listofgames, selected_genre=selected_genre)
+        unique_genres = get_unique_genres()
+        return render_template('filtered_games.html', filtered_games=listofgames, selected_genre=selected_genre, unique_genres=unique_genres)
 
     def get_unique_genres():
         games_file_name = "games/adapters/data/games.csv"
