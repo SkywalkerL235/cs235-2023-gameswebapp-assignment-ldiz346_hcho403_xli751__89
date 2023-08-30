@@ -1,4 +1,4 @@
-from games.adapters.repository import AbstractRepository
+import games.adapters.Abstract_class
 from games.domainmodel.model import Game, Genre, Publisher, User, Review
 
 class MemoryRepository(AbstractRepository):
