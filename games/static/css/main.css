@@ -161,10 +161,10 @@ a {
   display: none;
   position: absolute;
   background-color: #232424;
-  width: 180px;
-  border-radius: 5px;
+  width: 175px;
+  border-radius: 4px;
   z-index: 1;
-  padding: 10px;
+  padding: 9px;
   box-shadow: 0px 0px 5px rgba(0, 0, 0, 0.5);
   top: 19%;
   left: 0px; /* Adjust the positioning to move the dropdown to the left */
@@ -174,13 +174,13 @@ a {
   clip-path: polygon(0 0, calc(100% + 20px) 0, calc(100% + 20px) 100%, 0 100%);
 }
 
-
 /* Links inside the dropdown */
 .dropdown-content a {
   color: #dae0e0;
   padding: 8px 0; /* Adjust padding */
   text-decoration: none;
   display: block;
+    height: 9px;
 }
 
 /* Change color on hover */
