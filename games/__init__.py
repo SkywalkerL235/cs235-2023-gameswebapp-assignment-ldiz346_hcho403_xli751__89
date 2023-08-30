@@ -215,6 +215,7 @@ def create_app():
                     listofgames.append(Gamepart)
             except:
                 pass
+        listofgames.sort(key=lambda x: x['name'])
         unique_genres = get_unique_genres()
         return render_template('filtered_games.html', filtered_games=listofgames, selected_genre=selected_genre, unique_genres=unique_genres)
 
