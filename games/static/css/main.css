@@ -161,7 +161,7 @@ a {
   display: none;
   position: absolute;
   background-color: #232424;
-  width: 200px;
+  width: 170px;
   border-radius: 5px;
   z-index: 1;
   padding: 10px;
@@ -187,6 +187,10 @@ a {
 .dropdown-content a:hover {
   background-color: #f5cf67;
   color: #232424;
+    font-family: 'Courier';
+    text-align: center;
+    font-size: 13px;
+    font-weight: bold;
 }
 
 /* Show the dropdown content when hovering over the dropdown button */
