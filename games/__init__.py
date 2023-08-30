@@ -18,6 +18,13 @@ def create_some_game():
                             "the Call of Duty® series, delivers the most intense and cinematic action experience ever. "
     some_game.image_url = "https://cdn.akamai.steamstatic.com/steam/apps/7940/header.jpg?t=1646762118"
     return some_game'''
+###from games.adapters.repository import MemoryRepository
+
+# Create an instance of the repository
+##repository = MemoryRepository()
+
+# Inject the repository instance into your application components
+##app = create_app(repository=repository)##
 
 
 def create_app():
