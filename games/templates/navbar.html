@@ -1,14 +1,21 @@
 <nav>
-
     <script src="https://kit.fontawesome.com/1de52e9c4f.js" crossorigin="anonymous"></script>
-  <div class="sidebar">
-      <ab><i class="fa-solid fa-biohazard fa-7x" style="color: #93edec;"></i></ab>
+    <div class="sidebar">
+        <ab><i class="fa-solid fa-biohazard fa-7x" style="color: #93edec;"></i></ab>
         <a href="{{ url_for('show_layout') }}">Home</a>
         <a href="{{ url_for('show_games') }}">All Games</a>
+        <div class="dropdown">
+            <button class="dropbtn">Genres <i class="fa fa-caret-down"></i></button>
+            <div class="dropdown-content">
+                {% for genre in unique_genres %}
+                <a href="{{ url_for('filter_by_genre', selected_genre=genre) }}">{{ genre }}</a>
+                {% endfor %}
+            </div>
+        </div>
         <a>Reviews</a>
         <a>Wishlist</a>
         <footer>ldiz346 | hcho403 | xli751</footer>
-  </div>
+    </div>
     <div class="content">
         <header id="header">
             <h1>Game Library</h1>

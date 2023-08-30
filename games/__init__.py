@@ -31,8 +31,8 @@ def create_app():
         #some_game = create_some_game()
         # Use Jinja to customize a predefined html page rendering the layout for showing a single game.
     def show_layout():
-        #return render_template('gameDescription.html', game=some_game)
-        return render_template('layout.html')
+        unique_genres = get_unique_genres()  # Get unique genres
+        return render_template('layout.html', unique_genres=unique_genres)
 
     @app.route('/game/<gameToDisplay>')
     def show_gamedesc(gameToDisplay):
@@ -178,4 +178,32 @@ def create_app():
         else:
             return render_template('search.html', listOfSearches = [], target = "", amount_result = 0)
 
+    @app.route('/filtered_games/<selected_genre>')
+    def filter_by_genre(selected_genre):
+        games_file_name = "games/adapters/data/games.csv"
+        reader = GameFileCSVReader(games_file_name)
+        reader.read_csv_file()
+        raw_games_list = reader.dataset_of_games
+        filtered_games = [game for game in raw_games_list if
+                          any(genre.genre_name == selected_genre for genre in game.genres)]
+
+        return render_template('filtered_games.html', filtered_games=filtered_games, selected_genre=selected_genre)
+
+
+    def get_unique_genres():
+        games_file_name = "games/adapters/data/games.csv"
+        reader = GameFileCSVReader(games_file_name)
+        reader.read_csv_file()
+        raw_games_list = reader.dataset_of_games
+        unique_genres = set()  # Using a set to ensure uniqueness
+        for game in raw_games_list:
+            for genre in game.genres:
+                unique_genres.add(genre.genre_name)
+        return sorted(unique_genres)  # Return a sorted list of unique genres
+
     return app
+
+
+
+
+

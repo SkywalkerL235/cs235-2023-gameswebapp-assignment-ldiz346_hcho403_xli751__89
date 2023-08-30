@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Filtered Games</title>
+    <link rel="stylesheet" href="../static/css/main.css">
+</head>
+<body>
+
+    {% include 'navbar.html' %}
+
+    <div class="content">
+        <div class="sidebar">
+            <ab><i class="fa-solid fa-biohazard fa-7x" style="color: #93edec;"></i></ab>
+            <a href="{{ url_for('show_layout') }}">Home</a>
+            <a href="{{ url_for('show_games') }}">All Games</a>
+            <a>Reviews</a>
+            <a>Wishlist</a>
+            <footer>ldiz346 | hcho403 | xli751</footer>
+        </div>
+        <div id="container">
+            <main id="main">
+                <Table>
+                      {% for game in filtered_games %}
+                        <tr>
+                            <td><a href="{{ url_for('show_gamedesc', gameToDisplay=game.id) }}" > <img src="{{ game.image }}" alt="game image"> </a></td>
+                            <td><a href="{{ url_for('show_gamedesc', gameToDisplay=game.id) }}">
+                                <h2>{{ game.name }}</h2>
+                                <div class="description">
+                                <p><i>Price:</i> {{ game.price }}</p><p><i>Publishers:</i> {{ game.publishers }}</p><p><i>Release Date:</i>
+                                  {{ game.date }}</p><p><i>Genres:</i> {{ game.genres }}</p>
+                                </div>
+                            </a></td>
+                        </tr>
+
+                      {% endfor %}
+                </Table>
+            </main>
+        </div>
+    </div>
+</body>
+</html>

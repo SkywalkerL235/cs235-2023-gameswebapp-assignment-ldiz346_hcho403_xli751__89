@@ -145,3 +145,51 @@ a {
 .topnav .search-container button:hover {
   background: #f5cf67;
 }
+/* Style the dropdown button */
+.dropbtn {
+  background-color: #2f3030;
+  color: #dae0e0;
+  padding: 5px;
+  font-size: 13px;
+  border: none;
+  cursor: pointer;
+  border-radius: 5px; /* Add border radius to make it look like a box */
+}
+
+/* Dropdown container (hidden by default) */
+.dropdown-content {
+  display: none;
+  position: absolute;
+  background-color: #232424;
+  width: 200px;
+  border-radius: 5px;
+  z-index: 1;
+  padding: 10px;
+  box-shadow: 0px 0px 5px rgba(0, 0, 0, 0.5);
+  top: 0%;
+  left: 0px; /* Adjust the positioning to move the dropdown to the left */
+  white-space: nowrap;
+  overflow: visible;
+  /* Increase the value to allow more content overflow */
+  clip-path: polygon(0 0, calc(100% + 20px) 0, calc(100% + 20px) 100%, 0 100%);
+}
+
+
+/* Links inside the dropdown */
+.dropdown-content a {
+  color: #dae0e0;
+  padding: 5px 0; /* Adjust padding */
+  text-decoration: none;
+  display: block;
+}
+
+/* Change color on hover */
+.dropdown-content a:hover {
+  background-color: #f5cf67;
+  color: #232424;
+}
+
+/* Show the dropdown content when hovering over the dropdown button */
+.dropdown:hover .dropdown-content {
+  display: block;
+}
