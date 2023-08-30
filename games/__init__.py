@@ -69,7 +69,7 @@ def create_app():
                 break
         unique_genres = get_unique_genres()
 
-        return render_template('gameDescription.html', gameToDisplay=the_game unique_genres=unique_genres)
+        return render_template('gameDescription.html', gameToDisplay=the_game, unique_genres=unique_genres)
 
     @app.route('/games')
     def show_games():
