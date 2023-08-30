@@ -184,11 +184,35 @@ def create_app():
         reader = GameFileCSVReader(games_file_name)
         reader.read_csv_file()
         raw_games_list = reader.dataset_of_games
-        filtered_games = [game for game in raw_games_list if
-                          any(genre.genre_name == selected_genre for genre in game.genres)]
+        listofgames = []
 
-        return render_template('filtered_games.html', filtered_games=filtered_games, selected_genre=selected_genre)
+        for game in raw_games_list:
+            try:
+                list_of_genres = game.genres
+                if any(genre.genre_name == selected_genre for genre in list_of_genres):
+                    official_genre_string = ', '.join(part.genre_name for part in list_of_genres)
 
+                    if game.price == 0.0:
+                        price_string = "Free to play"
+                    else:
+                        price_string = "$" + str(game.price)
+
+                    Gamepart = {
+                        'name': game.title,
+                        'price': price_string,
+                        'image': game.image_url,
+                        'publishers': game.publisher.publisher_name,
+                        'date': game.release_date,
+                        'genres': official_genre_string,
+                        'reviews': len(game.reviews),
+                        'id': game.game_id,
+                        'about': game.description
+                    }
+                    listofgames.append(Gamepart)
+            except:
+                pass
+
+        return render_template('filtered_games.html', filtered_games=listofgames, selected_genre=selected_genre)
 
     def get_unique_genres():
         games_file_name = "games/adapters/data/games.csv"
