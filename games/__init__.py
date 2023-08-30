@@ -132,6 +132,7 @@ def create_app():
                 'genres': 'Indie',
                 'reviews': '0'
             }]'''
+        listOfGames.sort(key=lambda x: x['name'])
         unique_genres = get_unique_genres()
         return render_template('games.html', listOfGames=listOfGames, unique_genres=unique_genres)
     @app.route('/search', methods = ["POST","GET"])
