@@ -96,6 +96,7 @@ class MemoryRepository(AbstractRepository):
         return listofgames
 
     def get_game_description(self, game_id):
+        the_game = None
         for game in self.games:
             if game.game_id == game_id:
                 list_of_genres = game.genres
