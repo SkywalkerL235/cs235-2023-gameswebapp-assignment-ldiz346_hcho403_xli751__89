@@ -23,10 +23,23 @@
         </header>
         <div class="topnav">
             <div class="search-container">
-                <form action="{{url_for('show_search')}}" method = "POST">
-                    <input type="text" placeholder="Search by name" name="search">
-                    <button type="submit">Submit</button>
-                </form>
+                <table>
+                    <tr>
+                        <td>
+                            <form action="{{url_for('show_name_search')}}" method = "POST">
+                            <input type="text" placeholder="Search by name" name="search">
+                            <button type="submit">Submit</button>
+                            </form>
+                        </td>
+                        <td>
+                            <form action="{{url_for('show_publisher_search')}}" method = "POST">
+                            <input type="text" placeholder="Search by publisher" name="search">
+                            <button type="submit">Submit</button>
+                            </form>
+                        </td>
+                    </tr>
+                </table>
+
             </div>
         </div>
     </div>
