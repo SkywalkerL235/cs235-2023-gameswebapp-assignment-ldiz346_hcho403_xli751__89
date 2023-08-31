@@ -199,3 +199,26 @@ a {
 .dropdown:hover .dropdown-content {
   display: block;
 }
+
+.pagination ab {
+    display: block;
+    background-color: #232424;
+  color: #f5cf67;
+    text-align: center;
+    font-size: 18px;
+    padding: 8px;
+    width: 62px;
+    position: absolute;
+    left: 224px;
+}
+.pagination ac {
+    display: block;
+    background-color: #232424;
+  color: #f5cf67;
+    text-align: center;
+    font-size: 18px;
+    padding: 8px;
+    width: 35px;
+    position: absolute;
+    right: 23px;
+}
