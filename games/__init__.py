@@ -1,11 +1,8 @@
 """Initialize Flask app."""
-import games.adapters.datareader.csvdatareader
 from flask import Flask, render_template, redirect, url_for, request
-
-from games.adapters.datareader.csvdatareader import GameFileCSVReader
+from games.adapters.Repository_class import MemoryRepository
 # TODO: Access to the games should be implemented via the repository pattern and using blueprints, so this can not
 #  stay here!
-from games.domainmodel.model import Game
 
 
 '''# TODO: Access to the games should be implemented via the repository pattern and using blueprints, so this can not
@@ -80,14 +77,10 @@ def create_app():
 
     @app.route('/games')
     def show_games():
-        games_file_name = "games/adapters/data/games.csv"
-        reader = GameFileCSVReader(games_file_name)
-        reader.read_csv_file()
-        raw_games_list = reader.dataset_of_games
+        repository = MemoryRepository()
         listOfGames = []
 
-        for index in range(0, (len(raw_games_list))):
-            game = raw_games_list[index]
+        for game in repository.get_all_games():
             try:
                 list_of_genres = game.genres
                 official_genre_string = ', '.join(part.genre_name for part in list_of_genres)
@@ -112,35 +105,8 @@ def create_app():
             except:
                 pass
 
-        '''listOfGamesExample = [{
-            'name': 'Oxygen Not Included',
-            'price': '$24.99',
-            'image': "https://cdn.akamai.steamstatic.com/steam/apps/457140/header_alt_assets_6.jpg?t=1654189805",
-            'publishers': 'Klei Entertainment',
-            'date': 'Jul 30, 2019',
-            'genres': 'Indie,Simulation',
-            'reviews': '0'
-        },
-            {
-                'name': 'Sally Face - Episode One',
-                'price': '$2.99',
-                'image': "https://cdn.akamai.steamstatic.com/steam/apps/541570/header.jpg?t=1619036403",
-                'publishers': 'Portable Moose',
-                'date': 'Dec 14, 2016',
-                'genres': 'Adventure,Indie',
-                'reviews': '5'
-            },
-            {
-                'name': 'Super Meat Boy',
-                'price': '$14.99',
-                'image': "https://cdn.akamai.steamstatic.com/steam/apps/40800/header.jpg?t=1638306971",
-                'publishers': 'Unknown',
-                'date': 'Nov 30, 2010',
-                'genres': 'Indie',
-                'reviews': '0'
-            }]'''
         listOfGames.sort(key=lambda x: x['name'])
-        unique_genres = get_unique_genres()
+        unique_genres = repository.get_unique_genres()
         return render_template('games.html', listOfGames=listOfGames, unique_genres=unique_genres)
     @app.route('/N_search', methods = ["POST","GET"])
     def show_name_search():
