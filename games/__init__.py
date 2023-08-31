@@ -241,7 +241,7 @@ def create_app():
         unique_genres = get_unique_genres()
         return render_template('filtered_games.html', filtered_games=listofgames, selected_genre=selected_genre, unique_genres=unique_genres)
 
-    def get_unique_genres():
+    ''''def get_unique_genres():
         games_file_name = "games/adapters/data/games.csv"
         reader = GameFileCSVReader(games_file_name)
         reader.read_csv_file()
@@ -250,7 +250,7 @@ def create_app():
         for game in raw_games_list:
             for genre in game.genres:
                 unique_genres.add(genre.genre_name)
-        return sorted(unique_genres)  # Return a sorted list of unique genres
+        return sorted(unique_genres)  # Return a sorted list of unique genres'''
 
     return app
 
