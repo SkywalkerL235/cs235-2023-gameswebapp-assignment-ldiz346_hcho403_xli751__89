@@ -22,7 +22,7 @@ def create_some_game():
 ###from games.adapters.repository import MemoryRepository
 
 # Create an instance of the repository
-repository = MemoryRepository()
+
 
 # Inject the repository instance into your application components
 
@@ -30,9 +30,8 @@ repository = MemoryRepository()
 
 
 def create_app(repository=repository):
-    """Construct the core application."""
 
-    # Create the Flask app object.
+    repository = MemoryRepository()
     app = Flask(__name__)
 
     @app.route('/')

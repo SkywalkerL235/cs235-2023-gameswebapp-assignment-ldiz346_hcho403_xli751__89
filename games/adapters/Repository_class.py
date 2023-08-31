@@ -17,7 +17,9 @@ class MemoryRepository(AbstractRepository):
         self.publishers = reader.dataset_of_publishers
 
     def get_game_by_id(self, game_id: int) -> Game:
-        # Implement the logic to retrieve a game by its ID
+        for items in self.games:
+            if items.game_id == game_id:
+                return items
         pass
 
     def get_all_games(self) -> list[Game]:
@@ -51,13 +53,11 @@ class MemoryRepository(AbstractRepository):
         listofgames.sort(key=lambda x: x['name'])
         return listofgames
 
-    def get_games_by_genre(self, genre: Genre) -> list[Game]:
-        # Implement the logic to retrieve games by genre
-        pass
+    def add_game(self, game: Game):
+        if game not in self.games:
+            self.games.append(game)
 
-    def get_unique_genres(self):
-        return self.genres
-
+    def get_unique_genres(self) -> list[str]:
         unique_genres = set()  # Using a set to ensure uniqueness
         for game in self.games:
             for genre in game.genres:
