@@ -172,6 +172,7 @@ def create_app():
             return render_template('search.html', listOfSearches = search_list, target = target, amount_result = len(search_list), unique_genres=unique_genres)
         else:
             return render_template('search.html', listOfSearches = [], target = "", amount_result = 0, unique_genres=unique_genres)
+
     def get_game_list():
         games_file_name = "games/adapters/data/games.csv"
         reader = GameFileCSVReader(games_file_name)
@@ -203,6 +204,7 @@ def create_app():
                 pass
         listOfGames.sort(key=lambda x: x['name'])
         return listOfGames
+
 
     @app.route('/filtered_games/<selected_genre>')
     def filter_by_genre(selected_genre):
@@ -241,7 +243,7 @@ def create_app():
         unique_genres = get_unique_genres()
         return render_template('filtered_games.html', filtered_games=listofgames, selected_genre=selected_genre, unique_genres=unique_genres)
 
-    ''''def get_unique_genres():
+    def get_unique_genres():
         games_file_name = "games/adapters/data/games.csv"
         reader = GameFileCSVReader(games_file_name)
         reader.read_csv_file()
