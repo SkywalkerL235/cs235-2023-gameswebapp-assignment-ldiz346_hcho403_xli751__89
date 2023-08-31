@@ -1,3 +1,4 @@
+
 from abc import ABC, abstractmethod
 from games.domainmodel.model import Game, Genre, Publisher, User, Review
 
