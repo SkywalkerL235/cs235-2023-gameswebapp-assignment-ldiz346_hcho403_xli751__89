@@ -48,9 +48,23 @@ def create_app(repository=repository):
 
     @app.route('/games')
     def show_games():
+        page = request.args.get('page', default=1, type=int)  # Get the page number from the query parameter
+        per_page = 20
         listofgames = repository.get_all_games()
+
+        start_idx = (page - 1) * per_page
+        end_idx = start_idx + per_page
+        games_subset = listofgames[start_idx:end_idx]
+
         unique_genres = repository.get_unique_genres()
-        return render_template('games.html', listOfGames=listofgames, unique_genres=unique_genres)
+        return render_template(
+            'games.html',
+            listOfGames=games_subset,
+            unique_genres=unique_genres,
+            page=page,
+            per_page=per_page
+        )
+
     @app.route('/N_search', methods = ["POST","GET"])
     def show_name_search():
         unique_genres = repository.get_unique_genres()
