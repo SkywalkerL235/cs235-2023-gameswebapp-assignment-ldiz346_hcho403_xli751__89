@@ -23,23 +23,28 @@
         </header>
         <div class="topnav">
             <div class="search-container">
-                <table>
-                    <tr>
-                        <td>
-                            <form action="{{url_for('show_name_search')}}" method = "POST">
-                            <input type="text" placeholder="Search by name" name="search">
-                            <button type="submit">Submit</button>
-                            </form>
-                        </td>
-                        <td>
-                            <form action="{{url_for('show_publisher_search')}}" method = "POST">
-                            <input type="text" placeholder="Search by publisher" name="search">
-                            <button type="submit">Submit</button>
-                            </form>
-                        </td>
-
-                    </tr>
-                </table>
+                <div class = 'dropdown'>
+                    <button class="searchdropbtn">SEARCH <i class="fa fa-caret-down"></i></button>
+                    <div class="dropdown-content">
+                        <table>
+                                <tr>
+                                    <form action="{{url_for('show_name_search')}}" method = "GET">
+                                    <button type="submit">Search by name</button>
+                                    </form>
+                                </tr>
+                                <tr>
+                                    <form action="{{url_for('show_publisher_search')}}" method = "GET">
+                                    <button type="submit">Search by publisher</button>
+                                    </form>
+                                </tr>
+                                <tr>
+                                    <form action="{{url_for('show_genre_search')}}">
+                                    <button type = "submit">Search by genre</button>
+                                    </form>
+                                </tr>
+                        </table>
+                    </div>
+                </div>
             </div>
         </div>
     </div>
