@@ -32,6 +32,7 @@ def create_app(repository=repository):
         page = request.args.get('page', default=1, type=int)  # Get the page number from the query parameter
         per_page = 20
         listofgames = repository.get_all_games()
+        number_of_total_games = len(listofgames)
 
         start_idx = (page - 1) * per_page
         end_idx = start_idx + per_page
@@ -43,7 +44,8 @@ def create_app(repository=repository):
             listOfGames=games_subset,
             unique_genres=unique_genres,
             page=page,
-            per_page=per_page
+            per_page=per_page,
+            total_number_games=number_of_total_games
         )
 
     @app.route('/N_search', methods = ["POST","GET"])

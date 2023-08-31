@@ -33,11 +33,21 @@
 
                   <div class="pagination">
                       {% if page > 1 %}
-                          <ab><a href="{{ url_for('show_games', page=page-1) }}">Previous</a></ab>
+                          <a class="nextorprev" href="{{ url_for('show_games', page=page-1) }}">Previous</a>
                       {% endif %}
+
+                      {% for p in range(1, (total_number_games // per_page) + 2) %}
+                          {% if p == page %}
+                              <a class="active" href="{{ url_for('show_games', page=p) }}">{{ p }}</a>
+                          {% else %}
+                          <a href="{{ url_for('show_games', page=p) }}">{{ p }}</a>
+                          {% endif %}
+                      {% endfor %}
+
                       {% if listOfGames|length == per_page %}
-                          <ac><a href="{{ url_for('show_games', page=page+1) }}">Next</a></ac>
+                          <a class="nextorprev" href="{{ url_for('show_games', page=page+1) }}">Next</a>
                       {% endif %}
+
                   </div>
 
               </main>
