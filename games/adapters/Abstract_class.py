@@ -60,3 +60,11 @@ class AbstractRepository(ABC):
     @abstractmethod
     def delete_user(self, user: User):
         pass
+
+    @abstractmethod
+    def get_unique_genres(self) -> list[str]:
+        pass
+
+    @abstractmethod
+    def filter_by_genre(self, selected_genre: str) -> list[Game]:
+        pass
