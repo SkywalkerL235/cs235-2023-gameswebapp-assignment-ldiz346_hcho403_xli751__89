@@ -122,20 +122,70 @@ class MemoryRepository(AbstractRepository):
         return the_game
 
     def get_name_search_list(self, target):
+        listofgames = []
+        for game in self.games:
+            try:
+                list_of_genres = game.genres
+                official_genre_string = ', '.join(part.genre_name for part in list_of_genres)
+
+                if game.price == 0.0:
+                    price_string = "Free to play"
+                else:
+                    price_string = "$" + str(game.price)
+
+                Gamepart = {
+                    'name': game.title,
+                    'price': price_string,
+                    'image': game.image_url,
+                    'publishers': game.publisher.publisher_name,
+                    'date': game.release_date,
+                    'genres': official_genre_string,
+                    'reviews': len(game.reviews),
+                    'id': game.game_id,
+                    'about': game.description
+                }
+                listofgames.append(Gamepart)
+            except:
+                pass
         search_list = []
         if target != '':
-            for game in self.games:
-                if target.lower() in game.title.lower():
+            for game in listofgames:
+                if target.lower() in game['name'].lower():
                     search_list.append(game)
-        search_list.sort(key=lambda x: x.title)
+        search_list.sort(key=lambda x: x['name'])
         return search_list
 
     def get_publisher_search_list(self,target):
+        listofgames = []
+        for game in self.games:
+            try:
+                list_of_genres = game.genres
+                official_genre_string = ', '.join(part.genre_name for part in list_of_genres)
+
+                if game.price == 0.0:
+                    price_string = "Free to play"
+                else:
+                    price_string = "$" + str(game.price)
+
+                Gamepart = {
+                    'name': game.title,
+                    'price': price_string,
+                    'image': game.image_url,
+                    'publishers': game.publisher.publisher_name,
+                    'date': game.release_date,
+                    'genres': official_genre_string,
+                    'reviews': len(game.reviews),
+                    'id': game.game_id,
+                    'about': game.description
+                }
+                listofgames.append(Gamepart)
+            except:
+                pass
         search_list = []
         if target != '':
-            for game in self.games:
-                if target.lower() in game.publisher.publisher_name.lower():
+            for game in listofgames:
+                if target.lower() in game['publishers'].lower():
                     search_list.append(game)
-        search_list.sort(key=lambda x: x.publisher.publisher_name)
+        search_list.sort(key=lambda x: x['publishers'])
         return search_list
     # Implement other methods for adding, updating, and deleting entities
