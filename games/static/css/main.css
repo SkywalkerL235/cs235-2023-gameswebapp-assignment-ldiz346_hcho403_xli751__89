@@ -1,15 +1,15 @@
 #header {
-  padding: 17px;
+  padding: 5px;
     color: white;
   background: #232424;
   border-bottom: 5px solid #f5cf67;
-  font-size: 28px;
+  font-size: 40px;
   font-weight: bold;
   text-align: center;
 }
 
 div.content {
-  margin-left: 200px;
+  margin-left: 277px;
   padding: 1px 16px;
 }
 
@@ -29,7 +29,7 @@ h2 {
 h3 {
     font-family: 'Courier';
     font-weight: bold;
-    font-size: 40px;
+    font-size: 46px;
     color: #93edec;
 }
 
@@ -46,10 +46,27 @@ h3 {
     color: #f5cf67
     }
 
+.description p {
+    font-size: 16px;
+    color: #dae0e0
+    }
+
 .description img {
         vertical-align: top;
-        height: 230px;
+        height: 280px;
     }
+
+.amp p i{
+    font-family: 'Courier';
+    font-weight: bold;
+    font-size: 19px;
+    text-transform: uppercase;
+    color: #f5cf67
+}
+
+.amp p {
+    font-size: 19px;
+}
 
 tr:hover {
     background-color: #646666
@@ -60,8 +77,9 @@ tr {
 
 table {
     border-collapse: collapse;
+    width: 100%;
 }
-th, td {
+td {
     border-bottom: 10px solid #2f3030;
     text-align: left;
 }
@@ -74,7 +92,7 @@ a {
 .sidebar {
   margin: 0;
   padding: 0;
-  width: 200px;
+  width: 270px;
   background-color: #232424;
   position: fixed;
   height: 98%;
@@ -86,7 +104,7 @@ a {
   color: #dae0e0;
   padding: 15px;
   text-decoration: none;
-    height: 15px
+    font-size: 21px;
 }
 
 .sidebar a:hover {
@@ -94,21 +112,22 @@ a {
   color: #232424;
     font-family: 'Courier';
     text-align: center;
-    font-size: 16px;
+    font-size: 21px;
     font-weight: bold;
 }
 
 .sidebar ab {
   display: block;
-    padding-top: 35px;
-    padding-bottom: 25px;
+    padding-top: 50px;
+    padding-bottom: 40px;
     text-align: center;
 }
 
 .sidebar footer {
     color: #dae0e0;
-    padding: 21px;
+    padding: 35px;
     position:absolute;
+    font-size: 18px;
     bottom:0;
 }
 
@@ -150,12 +169,11 @@ a {
   background-color: #232424;
   color: #dae0e0;
   padding: 14px;
-  font-size: 15px;
+  font-size: 21px;
   border: none;
   cursor: pointer;
   border-radius: 5px; /* Add border radius to make it look like a box */
     font-family: "Times New Roman";
-    font-size: 16px;
 }
 
 /* Dropdown container (hidden by default) */
@@ -163,10 +181,11 @@ a {
   display: none;
   position: absolute;
   background-color: #232424;
-  width: 175px;
+  width: 230px;
   border-radius: 4px;
   z-index: 1;
   padding: 9px;
+    padding-bottom: 20px;
   box-shadow: 0px 0px 5px rgba(0, 0, 0, 0.5);
   top: 19%;
   left: 0px; /* Adjust the positioning to move the dropdown to the left */
@@ -179,10 +198,11 @@ a {
 /* Links inside the dropdown */
 .dropdown-content a {
   color: #dae0e0;
-  padding: 8px 0; /* Adjust padding */
+  padding: 10px 0; /* Adjust padding */
   text-decoration: none;
   display: block;
     height: 9px;
+    padding-bottom: 23px;
 }
 
 /* Change color on hover */
@@ -193,6 +213,7 @@ a {
     text-align: center;
     font-size: 13px;
     font-weight: bold;
+    padding-bottom: 23px;
 }
 
 /* Show the dropdown content when hovering over the dropdown button */
@@ -201,32 +222,31 @@ a {
 }
 
 .pagination {
-    display: inline-block;
+    display: block;
     background-color: #232424;
+    width: 100%;
+    text-align: center;
 }
 
 .pagination a {
   color: #dae0e0;
-  float: left;
   padding: 6px 12px;
   text-decoration: none;
-    font-size: 15px;
+    font-size: 19px;
 }
 
 .pagination a.active {
   color: #f5cf67;
-  float: left;
   padding: 6px 12px;
   text-decoration: none;
-    font-size: 15px;
+    font-size: 19px;
     font-weight: bold;
 }
 
 .pagination a.nextorprev {
   color: #93edec;
-  float: left;
   padding: 6px 12px;
   text-decoration: none;
-    font-size: 15px;
+    font-size: 19px;
     font-weight: bold;
 }
