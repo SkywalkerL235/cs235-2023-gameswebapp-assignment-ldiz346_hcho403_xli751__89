@@ -53,65 +53,24 @@ def create_app(repository=repository):
         return render_template('games.html', listOfGames=listofgames, unique_genres=unique_genres)
     @app.route('/N_search', methods = ["POST","GET"])
     def show_name_search():
-        listOfGames = get_game_list()
-        unique_genres = get_unique_genres()
-        search_list = []
+        unique_genres = repository.get_unique_genres()
         if request.method == "POST":
             target = request.form["search"]
-            if target != "":
-                for game in listOfGames:
-                    if target.lower() in game['name'].lower():
-                        search_list.append(game)
+            search_list = repository.get_name_search_list(target)
             return render_template('search.html', listOfSearches = search_list, target = target, amount_result = len(search_list), unique_genres=unique_genres)
         else:
             return render_template('search.html', listOfSearches = [], target = "", amount_result = 0, unique_genres=unique_genres)
 
     @app.route('/P_search', methods=["POST", "GET"])
     def show_publisher_search():
-        listOfGames = get_game_list()
-        listOfGames.sort(key=lambda x: x['publishers'])
-        unique_genres = get_unique_genres()
-        search_list = []
+        unique_genres = repository.get_unique_genres()
         if request.method == "POST":
             target = request.form["search"]
-            if target != "":
-                for game in listOfGames:
-                    if target.lower() in game['publishers'].lower():
-                        search_list.append(game)
+            search_list = repository.get_publisher_search_list(target)
             return render_template('search.html', listOfSearches = search_list, target = target, amount_result = len(search_list), unique_genres=unique_genres)
         else:
             return render_template('search.html', listOfSearches = [], target = "", amount_result = 0, unique_genres=unique_genres)
-    def get_game_list():
-        games_file_name = "games/adapters/data/games.csv"
-        reader = GameFileCSVReader(games_file_name)
-        reader.read_csv_file()
-        raw_games_list = reader.dataset_of_games
-        listOfGames = []
-        for index in range(0, (len(raw_games_list))):
-            game = raw_games_list[index]
-            try:
-                list_of_genres = game.genres
-                official_genre_string = ', '.join(part.genre_name for part in list_of_genres)
-                if game.price == 0.0:
-                    price_string = "Free to play"
-                else:
-                    price_string = "$" + str(game.price)
-                Gamepart = {
-                    'name': game.title,
-                    'price': price_string,
-                    'image': game.image_url,
-                    'publishers': game.publisher.publisher_name,
-                    'date': game.release_date,
-                    'genres': official_genre_string,
-                    'reviews': len(game.reviews),
-                    'id': game.game_id,
-                    'about': game.description
-                }
-                listOfGames.append(Gamepart)
-            except:
-                pass
-        listOfGames.sort(key=lambda x: x['name'])
-        return listOfGames
+
 
     @app.route('/filtered_games/<selected_genre>')
     def filter_by_genre(selected_genre):

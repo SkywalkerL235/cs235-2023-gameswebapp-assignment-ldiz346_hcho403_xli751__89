@@ -121,4 +121,21 @@ class MemoryRepository(AbstractRepository):
                 break
         return the_game
 
+    def get_name_search_list(self, target):
+        search_list = []
+        if target != '':
+            for game in self.games:
+                if target.lower() in game.title.lower():
+                    search_list.append(game)
+        search_list.sort(key=lambda x: x.title)
+        return search_list
+
+    def get_publisher_search_list(self,target):
+        search_list = []
+        if target != '':
+            for game in self.games:
+                if target.lower() in game.publisher.publisher_name.lower():
+                    search_list.append(game)
+        search_list.sort(key=lambda x: x.publisher.publisher_name)
+        return search_list
     # Implement other methods for adding, updating, and deleting entities
