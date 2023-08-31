@@ -1,7 +1,7 @@
-import games.adapters.Abstract_class
+from games.adapters.Abstract_class import AbstractRepository
 from games.domainmodel.model import Game, Genre, Publisher, User, Review
 
-class MemoryRepository(Abstract_class):
+class MemoryRepository(AbstractRepository):
     def __init__(self):
         self.games = []  # List to store games
         # Initialize other data structures as needed
@@ -19,24 +19,16 @@ class MemoryRepository(Abstract_class):
         pass
 
     def get_unique_genres(self):
-        games_file_name = "games/adapters/data/games.csv"
-        reader = GameFileCSVReader(games_file_name)
-        reader.read_csv_file()
-        raw_games_list = reader.dataset_of_games
         unique_genres = set()  # Using a set to ensure uniqueness
-        for game in raw_games_list:
+        for game in self.games:
             for genre in game.genres:
                 unique_genres.add(genre.genre_name)
         return sorted(unique_genres)  # Return a sorted list of unique genres
 
     def filter_by_genre(self, selected_genre):
-        games_file_name = "games/adapters/data/games.csv"
-        reader = GameFileCSVReader(games_file_name)
-        reader.read_csv_file()
-        raw_games_list = reader.dataset_of_games
         listofgames = []
 
-        for game in raw_games_list:
+        for game in self.games:
             try:
                 list_of_genres = game.genres
                 if any(genre.genre_name == selected_genre for genre in list_of_genres):
@@ -63,5 +55,6 @@ class MemoryRepository(Abstract_class):
                 pass
         listofgames.sort(key=lambda x: x['name'])
         return listofgames
+
 
     # Implement other methods for adding, updating, and deleting entities
