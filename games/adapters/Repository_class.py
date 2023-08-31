@@ -1,5 +1,5 @@
 
-from games import GameFileCSVReader
+from games.adapters.datareader.csvdatareader import GameFileCSVReader
 from games.adapters.Abstract_class import AbstractRepository
 from games.domainmodel.model import Game, Genre, Publisher, User, Review
 
@@ -58,11 +58,11 @@ class MemoryRepository(AbstractRepository):
             self.games.append(game)
 
     def get_unique_genres(self) -> list[str]:
-        unique_genres = set()  # Using a set to ensure uniqueness
+        unique_genres = set()
         for game in self.games:
             for genre in game.genres:
                 unique_genres.add(genre.genre_name)
-        return sorted(unique_genres)  # Return a sorted list of unique genres
+        return sorted(unique_genres)
 
     def filter_by_genre(self, selected_genre):
         listofgames = []

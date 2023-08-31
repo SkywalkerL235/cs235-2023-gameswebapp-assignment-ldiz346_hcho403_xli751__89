@@ -2,11 +2,6 @@
 from flask import Flask, render_template, redirect, url_for, request
 
 from games.adapters.Repository_class import MemoryRepository
-# TODO: Access to the games should be implemented via the repository pattern and using blueprints, so this can not
-#  stay here!
-
-from games.adapters.datareader.csvdatareader import GameFileCSVReader
-from games.adapters.Repository_class import MemoryRepository
 
 
 '''# TODO: Access to the games should be implemented via the repository pattern and using blueprints, so this can not
@@ -28,10 +23,10 @@ def create_some_game():
 
 '''unique_genres = repository.get_unique_genres()'''
 
-
+repository = MemoryRepository()
 def create_app(repository=repository):
 
-    repository = MemoryRepository()
+
     app = Flask(__name__)
 
     @app.route('/')
