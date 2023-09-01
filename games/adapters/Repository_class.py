@@ -121,32 +121,7 @@ class MemoryRepository(AbstractRepository):
                 break
         return the_game
 
-    def get_name_search_list(self, target):
-        listofgames = []
-        for game in self.games:
-            try:
-                list_of_genres = game.genres
-                official_genre_string = ', '.join(part.genre_name for part in list_of_genres)
-
-                if game.price == 0.0:
-                    price_string = "Free to play"
-                else:
-                    price_string = "$" + str(game.price)
-
-                Gamepart = {
-                    'name': game.title,
-                    'price': price_string,
-                    'image': game.image_url,
-                    'publishers': game.publisher.publisher_name,
-                    'date': game.release_date,
-                    'genres': official_genre_string,
-                    'reviews': len(game.reviews),
-                    'id': game.game_id,
-                    'about': game.description
-                }
-                listofgames.append(Gamepart)
-            except:
-                pass
+    def get_name_search_list(self,listofgames ,target):
         search_list = []
         if target != '':
             for game in listofgames:
@@ -155,32 +130,7 @@ class MemoryRepository(AbstractRepository):
         search_list.sort(key=lambda x: x['name'])
         return search_list
 
-    def get_publisher_search_list(self,target):
-        listofgames = []
-        for game in self.games:
-            try:
-                list_of_genres = game.genres
-                official_genre_string = ', '.join(part.genre_name for part in list_of_genres)
-
-                if game.price == 0.0:
-                    price_string = "Free to play"
-                else:
-                    price_string = "$" + str(game.price)
-
-                Gamepart = {
-                    'name': game.title,
-                    'price': price_string,
-                    'image': game.image_url,
-                    'publishers': game.publisher.publisher_name,
-                    'date': game.release_date,
-                    'genres': official_genre_string,
-                    'reviews': len(game.reviews),
-                    'id': game.game_id,
-                    'about': game.description
-                }
-                listofgames.append(Gamepart)
-            except:
-                pass
+    def get_publisher_search_list(self,listofgames,target):
         search_list = []
         if target != '':
             for game in listofgames:

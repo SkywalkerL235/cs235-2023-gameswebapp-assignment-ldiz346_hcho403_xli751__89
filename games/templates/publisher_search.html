@@ -2,17 +2,22 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Sreach</title>
+    <title>publisher_search</title>
     <link
       rel="stylesheet" href="../static/css/main.css"
     />
 </head>
 <body>
-
     {% include 'navbar.html' %}
-
     <div class="content">
-
+        <div class="topnav">
+            <div class="search-container">
+                <form action="{{url_for('show_publisher_search')}}" method = "POST">
+                    <input type="text" placeholder="Search by publisher" name="search">
+                    <button type="submit">Submit</button>
+                </form>
+            </div>
+        </div>
         <div>
             <h1>Searching for "{{target}}" ({{amount_result}}) results found.</h1>
         </div>
@@ -37,5 +42,6 @@
               </main>
             </div>
     </div>
+
 </body>
 </html>

@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>name_sreach</title>
+    <link
+      rel="stylesheet" href="../static/css/main.css"
+    />
+</head>
+<body>
+    {% include 'navbar.html' %}
+    <div class="content">
+        <div class="topnav">
+            <div class="search-container">
+                <form action="{{url_for('show_name_search')}}" method = "POST">
+                    <input type="text" placeholder="Search by name" name="search">
+                    <button type="submit">Submit</button>
+                </form>
+            </div>
+        </div>
+        <div>
+            <h1>Searching for "{{target}}" ({{amount_result}}) results found.</h1>
+        </div>
+
+            <div id="container">
+              <main id="main">
+                    <Table>
+                      {% for game in listOfSearches %}
+                        <tr>
+                            <td><a href="{{ url_for('show_gamedesc', gameToDisplay=game.id) }}" > <img src="{{ game.image }}" alt="game image"> </a></td>
+                            <td><a href="{{ url_for('show_gamedesc', gameToDisplay=game.id) }}">
+                                <h2>{{ game.name }}</h2>
+                                <div class="description">
+                                <p><i>Price:</i> {{ game.price }}</p><p><i>Publishers:</i> {{ game.publishers }}</p><p><i>Release Date:</i>
+                                  {{ game.date }}</p><p><i>Genres:</i> {{ game.genres }}</p>
+                                </div>
+                            </a></td>
+                        </tr>
+
+                      {% endfor %}
+                    </Table>
+              </main>
+            </div>
+    </div>
+</body>
+</html>
