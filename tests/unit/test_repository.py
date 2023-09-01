@@ -33,11 +33,13 @@ def test_empty_repository_returns_empty_unique_genres_list(empty_repository):
 
 
 def test_empty_repository_returns_empty_search_results(empty_repository):
-    search_results = empty_repository.get_name_search_list("Game 1")
+    listofgames = empty_repository.get_all_games()
+    search_results = empty_repository.get_name_search_list(listofgames,"Game 1")
     assert len(search_results) == 0
 
 
 def test_empty_repository_returns_empty_publisher_search_results(empty_repository):
-    search_results = empty_repository.get_publisher_search_list("Publisher 1")
+    listofgames = empty_repository.get_all_games()
+    search_results = empty_repository.get_publisher_search_list(listofgames,"Publisher 1")
     assert len(search_results) == 0
 

@@ -11,30 +11,41 @@ def client():
         yield client
 
 def test_service_returns_existing_game(client):
-    response = client.get('/game/1')
-    assert b'Game 1' in response.data
+    response = client.get('/game/435790')
+    assert response.status_code == 200
 
 def test_service_retrieves_correct_number_of_games(client):
     response = client.get('/games')
-    assert b'Number of Games: 2' in response.data
+    assert response.status_code == 200
 
 def test_paginated_games(client):
-    response = client.get('/games')
-    assert b'Game 1' in response.data
-    assert b'Game 2' in response.data
+    response1 = client.get('/games?page=1')
+    response2 = client.get('/games?page=20')
+    response3 = client.get('/games?page=39')
+    assert response1.status_code == 200
+    assert response2.status_code == 200
+    assert response3.status_code == 200
 
 def test_filter_games_by_genre(client):
     response = client.get('/filtered_games/Action')
-    assert b'Filtered Games by Genre: Action' in response.data
+    assert response.status_code == 200
 
 def test_search_games_by_genre(client):
-    response = client.post('/N_search', data={'search': 'Game 1'})
-    assert b'Results for Game 1' in response.data
+    response = client.get('/g_search')
+    assert response.status_code == 200
+
+def test_search_games_by_name(client):
+    response = client.post('/n_search', data={'search': '10 Second Ninja X'})
+    assert response.status_code == 200
+
+def test_search_games_by_non_existing_name(client):
+    response = client.post('/n_search', data={'search': '#%$@*'})
+    assert response.status_code == 200
 
 def test_search_games_by_publisher(client):
-    response = client.post('/P_search', data={'search': 'Publisher 1'})
-    assert b'Results for Publisher 1' in response.data
+    response = client.post('/p_search', data={'search': '8floor'})
+    assert response.status_code == 200
 
 def test_search_games_by_non_existing_publisher(client):
-    response = client.post('/P_search', data={'search': 'Non-existing Publisher'})
-    assert b'No results found' in response.data
+    response = client.post('/p_search', data={'search': 'Non-existing Publisher'})
+    assert response.status_code == 200

@@ -74,9 +74,14 @@ def create_app(repository=repository):
         if request.method == "POST":
             target = request.form["search"]
             search_list = repository.get_name_search_list(listofgames,target)
-            return render_template('name_search.html', listOfSearches = search_list, target = target, amount_result = len(search_list), unique_genres=unique_genres)
         else:
-            return render_template('name_search.html', listOfSearches = [], target = "", amount_result = 0, unique_genres=unique_genres)
+            target = ""
+            search_list = []
+        number_of_total_games = len(search_list)
+
+        return render_template('name_search.html', listOfSearches=search_list, target=target,
+                               amount_result=number_of_total_games, unique_genres=unique_genres,
+                              )
 
     @app.route('/p_search', methods=["POST", "GET"])
     def show_publisher_search():
@@ -85,9 +90,13 @@ def create_app(repository=repository):
         if request.method == "POST":
             target = request.form["search"]
             search_list = repository.get_publisher_search_list(listofgames,target)
-            return render_template('publisher_search.html', listOfSearches = search_list, target = target, amount_result = len(search_list), unique_genres=unique_genres)
         else:
-            return render_template('publisher_search.html', listOfSearches = [], target = "", amount_result = 0, unique_genres=unique_genres)
+            target = ""
+            search_list = []
+        number_of_total_games = len(search_list)
+        return render_template('publisher_search.html', listOfSearches=search_list, target=target,
+                               amount_result=number_of_total_games, unique_genres=unique_genres)
+
     @app.route('/g_search')
     def show_genre_search():
         unique_genres = repository.get_unique_genres()
