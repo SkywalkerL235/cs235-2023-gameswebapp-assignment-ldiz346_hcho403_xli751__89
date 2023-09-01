@@ -1,7 +1,7 @@
 import pytest
 from games.adapters.Repository_class import MemoryRepository
 from games.domainmodel.model import Publisher, Genre, Game, Review, User, Wishlist
-
+from games.adapters.datareader.csvdatareader import GameFileCSVReader
 @pytest.fixture
 def empty_repository():
     return MemoryRepository()

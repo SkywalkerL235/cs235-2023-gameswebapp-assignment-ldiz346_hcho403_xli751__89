@@ -1,7 +1,7 @@
 import pytest
 from games.adapters.Repository_class import MemoryRepository
 from games.__init__ import create_app
-
+from games.adapters.datareader.csvdatareader import GameFileCSVReader
 @pytest.fixture
 def client():
     repository = MemoryRepository()
