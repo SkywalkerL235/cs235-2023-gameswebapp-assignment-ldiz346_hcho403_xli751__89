@@ -1,9 +1,13 @@
 <nav>
     <script src="https://kit.fontawesome.com/1de52e9c4f.js" crossorigin="anonymous"></script>
+
     <div class="sidebar">
+
         <ab><i class="fa-solid fa-biohazard fa-7x" style="color: #93edec;"></i></ab>
+
         <a href="{{ url_for('show_layout') }}">Home</a>
         <a href="{{ url_for('show_games') }}">All Games</a>
+
         <div class="dropdown">
             <button class="dropbtn">Genres <i class="fa fa-caret-down"></i></button>
             <div class="dropdown-content">
@@ -12,16 +16,27 @@
                 {% endfor %}
             </div>
         </div>
+
         <a href="{{ url_for('show_wishlist') }}">Wishlist</a>
+
         <footer>ldiz346 | hcho403 | xli751</footer>
     </div>
+
     <div class="content">
+
         <header id="header">
             <h1>Game Library</h1>
             <div class="copyright">&copy; ldiz346 | hcho403 | xli751</div>
         </header>
+
         <div class="topnav">
+
             <div class="search-container">
+
+                <div class="profilebutton">
+                <a href="{{ url_for('show_profile') }}">My Profile</a>
+                </div>
+
                 <div class = 'dropdown'>
                     <button class="searchdropbtn">SEARCH <i class="fa fa-caret-down"></i></button>
                     <div class="dropdown-content">
