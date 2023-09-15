@@ -118,6 +118,16 @@ def create_app(repository=repository):
             total_number_games=number_of_total_games
         )
 
+    @app.route('/wishlist')
+    def show_wishlist():
+        unique_genres = repository.get_unique_genres()  # Get unique genres
+        return render_template('wishlist.html', unique_genres=unique_genres)
+
+    @app.route('/profile')
+    def show_profile():
+        unique_genres = repository.get_unique_genres()  # Get unique genres
+        return render_template('profile.html', unique_genres=unique_genres)
+
     return app
 
 
