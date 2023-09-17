@@ -2,6 +2,7 @@
 {% block content %}
 
 
+    <div class="content">
       <div class="content">
           <main id="main">
               {% for genre in unique_genres %}
@@ -9,9 +10,8 @@
                     <li><a href="{{ url_for('filter_by_genre', selected_genre=genre) }}">{{ genre }}</a></li>
                 </div>
               {% endfor %}
-
-
           </main>
+      </div>
     </div>
 
 
