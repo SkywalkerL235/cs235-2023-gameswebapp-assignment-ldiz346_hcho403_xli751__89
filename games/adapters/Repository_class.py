@@ -8,6 +8,7 @@ class MemoryRepository(AbstractRepository):
         self.games = list()
         self.genres = list()
         self.publishers = list()
+        self.users = list()
 
         games_file_name = "games/adapters/data/games.csv"
         reader = GameFileCSVReader(games_file_name)
@@ -139,4 +140,8 @@ class MemoryRepository(AbstractRepository):
         search_list.sort(key=lambda x: x['publishers'])
         return search_list
 
+    def add_user(self, user: User):
+        self.users.append(user)
 
+    def get_user(self, user_name):
+        return next((user for user in self.users if user.username == user_name), None)

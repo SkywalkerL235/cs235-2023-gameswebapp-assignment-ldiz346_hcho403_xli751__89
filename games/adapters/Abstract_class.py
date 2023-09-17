@@ -2,6 +2,7 @@
 from abc import ABC, abstractmethod
 from games.domainmodel.model import Game, Genre, Publisher, User, Review
 
+repo_instance = None
 
 class AbstractRepository(ABC):
     @abstractmethod
@@ -23,3 +24,11 @@ class AbstractRepository(ABC):
     @abstractmethod
     def filter_by_genre(self, selected_genre: str) -> list[Game]:
         pass
+
+    @abstractmethod
+    def add_user(self, user: User):
+        raise NotImplementedError
+
+    @abstractmethod
+    def get_user(self, user_name) -> User:
+        raise NotImplementedError
