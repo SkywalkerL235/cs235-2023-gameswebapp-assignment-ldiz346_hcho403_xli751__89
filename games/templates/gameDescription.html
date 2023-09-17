@@ -1,18 +1,8 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Game Layout</title>
-    <link
-      rel="stylesheet" href="../static/css/main.css"
-    />
-</head>
-<body>
+{% extends 'layout.html' %}
+{% block content %}
 
-    {% include 'navbar.html' %}
 
     <div class="content">
-
             <div id="container">
               <main id="main">
                   <br>
@@ -30,5 +20,6 @@
               </main>
             </div>
     </div>
-</body>
-</html>
+
+
+{% endblock %}

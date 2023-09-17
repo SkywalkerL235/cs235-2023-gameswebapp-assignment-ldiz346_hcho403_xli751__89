@@ -1,20 +1,8 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Game Layout</title>
-    <link
-      rel="stylesheet" href="../static/css/main.css"
-    />
-</head>
-<body>
-
-    {% include 'navbar.html' %}
-
-    <div class="content">
+{% extends 'layout.html' %}
+{% block content %}
 
 
-            <div id="container">
+    <div id="container">
               <main id="main">
                     <Table>
                       {% for game in listOfGames %}
@@ -51,7 +39,7 @@
                   </div>
 
               </main>
-            </div>
     </div>
-</body>
-</html>
+
+
+{% endblock %}

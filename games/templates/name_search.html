@@ -1,14 +1,7 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>name_sreach</title>
-    <link
-      rel="stylesheet" href="../static/css/main.css"
-    />
-</head>
-<body>
-    {% include 'navbar.html' %}
+{% extends 'layout.html' %}
+{% block content %}
+
+
     <div class="content">
         <div class="topnav">
             <div class="search-container">
@@ -42,5 +35,6 @@
               </main>
             </div>
     </div>
-</body>
-</html>
+
+
+{% endblock %}
