@@ -131,12 +131,12 @@ def create_app(repository=repository):
     @app.route('/login')
     def show_login():
         unique_genres = repository.get_unique_genres()  # Get unique genres
-        return render_template('authentication/credentials.html', unique_genres=unique_genres)
+        return render_template('authentication/login.html', unique_genres=unique_genres)
 
     @app.route('/register')
     def show_register():
         unique_genres = repository.get_unique_genres()  # Get unique genres
-        return render_template('authentication/credentials.html', unique_genres=unique_genres)
+        return render_template('authentication/register.html', unique_genres=unique_genres)
 
     return app
 
