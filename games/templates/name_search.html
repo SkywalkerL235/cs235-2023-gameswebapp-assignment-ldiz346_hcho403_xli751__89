@@ -5,7 +5,7 @@
     <div class="content">
         <div class="topnav">
             <div class="search-container">
-                <form action="{{url_for('show_name_search')}}" method = "POST">
+                <form action="{{url_for('saerch_bp.show_name_search')}}" method = "POST">
                     <input type="text" placeholder="Search by name" name="search">
                     <button type="submit">Submit</button>
                 </form>
@@ -20,8 +20,8 @@
                     <Table>
                       {% for game in listOfSearches %}
                         <tr>
-                            <td><a href="{{ url_for('show_gamedesc', gameToDisplay=game.id) }}" > <img src="{{ game.image }}" alt="game image"> </a></td>
-                            <td><a href="{{ url_for('show_gamedesc', gameToDisplay=game.id) }}">
+                            <td><a href="{{ url_for('gameDes_bp.show_gamedesc', gameToDisplay=game.id) }}" > <img src="{{ game.image }}" alt="game image"> </a></td>
+                            <td><a href="{{ url_for('gameDes_bp.show_gamedesc', gameToDisplay=game.id) }}">
                                 <h2>{{ game.name }}</h2>
                                 <div class="description">
                                 <p><i>Price:</i> {{ game.price }}</p><p><i>Publishers:</i> {{ game.publishers }}</p><p><i>Release Date:</i>

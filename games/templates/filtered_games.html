@@ -8,8 +8,8 @@
                     <Table>
                       {% for game in filtered_games %}
                         <tr>
-                            <td><a href="{{ url_for('show_gamedesc', gameToDisplay=game.id) }}" > <img src="{{ game.image }}" alt="game image"> </a></td>
-                            <td><a href="{{ url_for('show_gamedesc', gameToDisplay=game.id) }}">
+                            <td><a href="{{ url_for('gameDes_bp.show_gamedesc', gameToDisplay=game.id) }}" > <img src="{{ game.image }}" alt="game image"> </a></td>
+                            <td><a href="{{ url_for('gameDes_bp.show_gamedesc', gameToDisplay=game.id) }}">
                                 <h2>{{ game.name }}</h2>
                                 <div class="description">
                                 <p><i>Price:</i> {{ game.price }}</p><p><i>Publishers:</i> {{ game.publishers }}</p><p><i>Release Date:</i>
@@ -22,19 +22,19 @@
                     </Table>
                 <div class="pagination">
                       {% if page > 1 %}
-                          <a class="nextorprev" href="{{ url_for('filter_by_genre',selected_genre=selected_genre, page=page-1) }}">Previous</a>
+                          <a class="nextorprev" href="{{ url_for('filtered_bp.filter_by_genre',selected_genre=selected_genre, page=page-1) }}">Previous</a>
                       {% endif %}
 
                       {% for p in range(1, (total_number_games // per_page) + 2) %}
                           {% if p == page %}
-                              <a class="active" href="{{ url_for('filter_by_genre',selected_genre=selected_genre, page=p) }}">{{ p }}</a>
+                              <a class="active" href="{{ url_for('filtered_bp.filter_by_genre',selected_genre=selected_genre, page=p) }}">{{ p }}</a>
                           {% else %}
-                          <a href="{{ url_for('filter_by_genre', selected_genre=selected_genre, page=p) }}">{{ p }}</a>
+                          <a href="{{ url_for('filtered_bp.filter_by_genre', selected_genre=selected_genre, page=p) }}">{{ p }}</a>
                           {% endif %}
                       {% endfor %}
 
                       {% if filtered_games|length == per_page %}
-                          <a class="nextorprev" href="{{ url_for('filter_by_genre',selected_genre=selected_genre, page=page+1) }}">Next</a>
+                          <a class="nextorprev" href="{{ url_for('filtered_bp.filter_by_genre',selected_genre=selected_genre, page=page+1) }}">Next</a>
                       {% endif %}
                 </div>
               </main>
