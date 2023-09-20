@@ -9,7 +9,7 @@
 }
 
 div.content {
-  margin-left: 307px;
+  margin-left: 287px;
   padding: 1px 16px;
 }
 
@@ -93,7 +93,7 @@ a {
 .sidebar {
   margin: 0;
   padding: 0;
-  width: 300px;
+  width: 280px;
   background-color: #232424;
   position: fixed;
   height: 98.75%;
@@ -105,7 +105,7 @@ a {
   color: #dae0e0;
   padding: 15px;
   text-decoration: none;
-    font-size: 21px;
+    font-size: 19px;
 }
 
 .sidebar a:hover {
@@ -114,7 +114,7 @@ a {
   color: #232424;
     font-family: 'Courier';
     text-align: center;
-    font-size: 21px;
+    font-size: 19px;
     font-weight: bold;
 }
 
@@ -173,7 +173,7 @@ a {
   background-color: #232424;
   color: #dae0e0;
   padding: 14px;
-  font-size: 21px;
+  font-size: 19px;
   border: none;
   cursor: pointer;
   border-radius: 5px; /* Add border radius to make it look like a box */
@@ -185,7 +185,7 @@ a {
   display: none;
   position: absolute;
   background-color: #232424;
-  width: 265px;
+  width: 245px;
   border-radius: 4px;
   z-index: 1;
   padding: 9px;
@@ -217,7 +217,7 @@ a {
     text-align: center;
     font-weight: bold;
     padding-bottom: 23px;
-    font-size: 21px;
+    font-size: 19px;
 }
 
 /* Show the dropdown content when hovering over the dropdown button */
