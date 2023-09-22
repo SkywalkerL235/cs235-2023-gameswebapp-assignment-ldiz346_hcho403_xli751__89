@@ -3,6 +3,8 @@ from games.adapters.datareader.csvdatareader import GameFileCSVReader
 from games.adapters.Abstract_class import AbstractRepository
 from games.domainmodel.model import Game, Genre, Publisher, User, Review
 
+import os
+
 class MemoryRepository(AbstractRepository):
     def __init__(self):
         self.games = list()
@@ -10,12 +12,12 @@ class MemoryRepository(AbstractRepository):
         self.publishers = list()
         self.users = list()
 
-        games_file_name = "games/adapters/data/games.csv"
-        reader = GameFileCSVReader(games_file_name)
-        reader.read_csv_file()
-        self.games = reader.dataset_of_games
-        self.genres = reader.dataset_of_genres
-        self.publishers = reader.dataset_of_publishers
+        # games_file_name = "games/adapters/data/games.csv"
+        # reader = GameFileCSVReader(games_file_name)
+        # reader.read_csv_file()
+        # self.games = reader.dataset_of_games
+        # self.genres = reader.dataset_of_genres
+        # self.publishers = reader.dataset_of_publishers
 
     def get_game_by_id(self, game_id: int) -> Game:
         for items in self.games:
@@ -54,9 +56,21 @@ class MemoryRepository(AbstractRepository):
         listofgames.sort(key=lambda x: x['name'])
         return listofgames
 
-    def add_game(self, game: Game):
-        if game not in self.games:
-            self.games.append(game)
+    def add_game(self, new_game: Game):
+        if new_game not in self.games:
+            self.games.append(new_game)
+
+    def add_genre_set(self, genre_set):
+        if all(isinstance(genre, Genre) for genre in genre_set):
+            og_genre_set = set(self.genres)
+            og_genre_set.update(og_genre_set - set(genre_set))
+            self.genres = list(og_genre_set)
+
+    def add_publisher_set(self, publisher_set):
+        if all(isinstance(publisher, Publisher) for publisher in publisher_set):
+            og_publisher_set = set(self.publishers)
+            og_publisher_set.update(og_publisher_set - set(publisher_set))
+            self.publishers = list(og_publisher_set)
 
     def get_unique_genres(self) -> list[str]:
         unique_genres = set()
@@ -122,7 +136,7 @@ class MemoryRepository(AbstractRepository):
                 break
         return the_game
 
-    def get_name_search_list(self,listofgames ,target):
+    def get_name_search_list(self, listofgames, target):
         search_list = []
         if target != '':
             for game in listofgames:
@@ -145,3 +159,20 @@ class MemoryRepository(AbstractRepository):
 
     def get_user(self, user_name):
         return next((user for user in self.users if user.username == user_name), None)
+
+
+def populate(repo: MemoryRepository):
+    dir_name = os.path.dirname(os.path.abspath(__file__))
+    games_file_name = os.path.join(dir_name, "data/games.csv")
+    reader = GameFileCSVReader(games_file_name)
+
+    reader.read_csv_file()
+
+    games = reader.dataset_of_games
+    genres = reader.dataset_of_genres
+    publishers = reader.dataset_of_publishers
+
+    for game in games:
+        repo.add_game(game)
+    repo.add_genre_set(genres)
+    repo.add_publisher_set(publishers)

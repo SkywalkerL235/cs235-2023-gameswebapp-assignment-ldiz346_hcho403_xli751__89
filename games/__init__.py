@@ -1,8 +1,7 @@
 """Initialize Flask app."""
 from flask import Flask, render_template, redirect, url_for, request
-
-from games.adapters.Repository_class import MemoryRepository
-
+import games.adapters.Abstract_class as repo
+from games.adapters.Repository_class import MemoryRepository, populate
 
 '''# TODO: Access to the games should be implemented via the repository pattern and using blueprints, so this can not
 #  stay here!
@@ -23,7 +22,6 @@ def create_some_game():
 
 '''unique_genres = repository.get_unique_genres()'''
 
-repository = MemoryRepository()
 from games.home import home
 from games.search import search
 from games.gameDescription import gameDescription
@@ -31,10 +29,12 @@ from games.all_games import games
 from games.filtered_games import filtered_games
 
 
-def create_app(repository=repository):
-
+def create_app():
 
     app = Flask(__name__)
+
+    repo.repo_instance = MemoryRepository()
+    populate(repo.repo_instance)
 
     app.register_blueprint(home.home_blueprint)
     app.register_blueprint(gameDescription.gameDes_blueprint)
@@ -44,22 +44,22 @@ def create_app(repository=repository):
 
     @app.route('/wishlist')
     def show_wishlist():
-        unique_genres = repository.get_unique_genres()  # Get unique genres
+        unique_genres = repo.repo_instance.get_unique_genres()  # Get unique genres
         return render_template('wishlist.html', unique_genres=unique_genres)
 
     @app.route('/profile')
     def show_profile():
-        unique_genres = repository.get_unique_genres()  # Get unique genres
+        unique_genres = repo.repo_instance.get_unique_genres()  # Get unique genres
         return render_template('profile.html', unique_genres=unique_genres)
 
     @app.route('/login')
     def show_login():
-        unique_genres = repository.get_unique_genres()  # Get unique genres
+        unique_genres = repo.repo_instance.get_unique_genres()  # Get unique genres
         return render_template('authentication/login.html', unique_genres=unique_genres)
 
     @app.route('/register')
     def show_register():
-        unique_genres = repository.get_unique_genres()  # Get unique genres
+        unique_genres = repo.repo_instance.get_unique_genres()  # Get unique genres
         return render_template('authentication/register.html', unique_genres=unique_genres)
 
     return app
