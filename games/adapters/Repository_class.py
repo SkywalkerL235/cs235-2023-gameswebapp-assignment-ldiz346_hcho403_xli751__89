@@ -13,6 +13,7 @@ class MemoryRepository(AbstractRepository):
         self.users = list()
         self._wishlists = {}
         self.user_wishlist = {}
+        self._reviews = list()
 
         # games_file_name = "games/adapters/data/games.csv"
         # reader = GameFileCSVReader(games_file_name)
@@ -186,6 +187,23 @@ class MemoryRepository(AbstractRepository):
             raise ValueError(f"Wishlist for user {username} not found!")
         return game in user_wishlist.list_of_games()
 
+    def add_review(self, review: Review):
+        if review not in self.reviews:
+            self.reviews.append(review)
+
+    def get_all_reviews(self) -> list[Review]:
+        return self.reviews
+
+    def get_reviews_by_game(self, game_id: int) -> list[Review]:
+        game_reviews = [review for review in self.reviews if review.game_id == game_id]
+        return game_reviews
+
+    def get_reviews_by_user(self, user_id: int) -> list[Review]:
+        user_reviews = [review for review in self.reviews if review.user_id == user_id]
+        return user_reviews
+
+    def delete_review(self, review_id: int):
+        self.reviews = [review for review in self.reviews if review.review_id != review_id]
 
 def populate(repo: MemoryRepository):
     dir_name = os.path.dirname(os.path.abspath(__file__))
