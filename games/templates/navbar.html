@@ -31,14 +31,10 @@
         </header>
 
         <div class="topnav">
-
+            <a href="{{ url_for('authentication_bp.register') }}">Register</a>
+            <a href="{{ url_for('authentication_bp.login') }}">Login</a>
+            <a href="{{ url_for('authentication_bp.logout') }}">Logout</a>
             <div class="search-container">
-
-                <div class="profilebutton">
-                    <a href="{{ url_for('show_login') }}">Login</a>
-                    <a href="{{ url_for('show_register') }}">Register</a>
-                </div>
-
                 <div class = 'dropdown'>
                     <button class="searchdropbtn">SEARCH <i class="fa fa-caret-down"></i></button>
                     <div class="dropdown-content">

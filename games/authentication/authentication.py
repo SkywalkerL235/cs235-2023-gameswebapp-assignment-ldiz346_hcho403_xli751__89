@@ -20,7 +20,7 @@ authentication_blueprint = Blueprint(
 def register():
     form = RegistrationForm()
     user_name_not_unique = None
-
+    unique_genres = services.get_unique_genres(repo.repo_instance)
     if form.validate_on_submit():
         try:
             services.add_user(form.user_name.data, form.password.data, repo.repo_instance)
@@ -35,6 +35,7 @@ def register():
         form=form,
         user_name_error_message=user_name_not_unique,
         handler_url=url_for('authentication_bp.register'),
+        unique_genres=unique_genres
         # add more here if needed
     )
 
@@ -44,6 +45,7 @@ def login():
     form = LoginForm()
     user_name_not_recognised = None
     password_does_not_match_user_name = None
+    unique_genres = services.get_unique_genres(repo.repo_instance)
 
     if form.validate_on_submit():
         try:
@@ -69,7 +71,8 @@ def login():
         title='Login',
         user_name_error_message=user_name_not_recognised,
         password_error_message=password_does_not_match_user_name,
-        form=form
+        form=form,
+        unique_genres=unique_genres
         # add more here if needed
     )
 

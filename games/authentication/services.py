@@ -53,3 +53,6 @@ def authenticate_user(user_name: str, password: str, repo: AbstractRepository):
         authenticated = check_password_hash(user.password, password)
     if not authenticated:
         raise AuthenticationException
+
+def get_unique_genres(repo: AbstractRepository):
+    return repo.get_unique_genres()
