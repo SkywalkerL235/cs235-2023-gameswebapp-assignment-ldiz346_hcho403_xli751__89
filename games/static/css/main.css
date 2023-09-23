@@ -70,7 +70,7 @@ h3 {
 
 .comments {
     border-radius: 19px;
-    box-shadow: 3px 3px 20px 0 black;
+    box-shadow: inset 3px 3px 20px 0 black;
     height: auto;
     align-content: center;
     padding: 10px 50px 20px 50px;
