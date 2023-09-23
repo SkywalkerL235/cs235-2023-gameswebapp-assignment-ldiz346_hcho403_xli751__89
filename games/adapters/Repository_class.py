@@ -1,7 +1,7 @@
 
 from games.adapters.datareader.csvdatareader import GameFileCSVReader
 from games.adapters.Abstract_class import AbstractRepository
-from games.domainmodel.model import Game, Genre, Publisher, User, Review
+from games.domainmodel.model import Game, Genre, Publisher, User, Review, Wishlist
 
 import os
 
@@ -11,6 +11,8 @@ class MemoryRepository(AbstractRepository):
         self.genres = list()
         self.publishers = list()
         self.users = list()
+        self._wishlists = {}
+        self.user_wishlist = {}
 
         # games_file_name = "games/adapters/data/games.csv"
         # reader = GameFileCSVReader(games_file_name)
@@ -159,6 +161,27 @@ class MemoryRepository(AbstractRepository):
 
     def get_user(self, user_name):
         return next((user for user in self.users if user.username == user_name), None)
+
+    def add_game_to_wishlist(self, username: str, game: Game):
+        user_wishlist = self._wishlists.get(username)
+        if not user_wishlist:
+            raise ValueError(f"Wishlist for user {username} not found!")
+        user_wishlist.add_game(game)
+
+    def remove_game_from_wishlist(self, username: str, game: Game):
+        user_wishlist = self._wishlists.get(username)
+        if not user_wishlist:
+            raise ValueError(f"Wishlist for user {username} not found!")
+        user_wishlist.remove_game(game)
+
+    def get_wishlist(self, username: str) -> Wishlist:
+        return self._wishlists.get(username)
+
+    def game_in_wishlist(self, username: str, game: Game) -> bool:
+        user_wishlist = self._wishlists.get(username)
+        if not user_wishlist:
+            raise ValueError(f"Wishlist for user {username} not found!")
+        return game in user_wishlist.list_of_games()
 
 
 def populate(repo: MemoryRepository):

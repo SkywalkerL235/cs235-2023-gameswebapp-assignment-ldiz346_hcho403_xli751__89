@@ -52,3 +52,26 @@ class AbstractRepository(abc.ABC):
     @abc.abstractmethod
     def get_user(self, user_name) -> User:
         raise NotImplementedError
+
+
+    def get_game_description(self, game_id: int):
+        raise NotImplementedError
+
+    @abc.abstractmethod
+    def get_unique_genres(self):
+        raise NotImplementedError
+
+    @abc.abstractmethod
+    def get_wishlist(self):
+        raise NotImplementedError
+
+    @abc.abstractmethod
+    def add_game_to_wishlist(self, game_id: int):
+        raise NotImplementedError
+
+    @abc.abstractmethod
+    def remove_game_from_wishlist(self, game_id: int):
+        raise NotImplementedError
+
+    def game_in_wishlist(self, username: str, game: Game) -> bool:
+        raise NotImplementedError

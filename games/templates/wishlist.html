@@ -1,18 +1,47 @@
 {% extends 'layout.html' %}
 {% block content %}
 
+<div class="content">
+    <div id="container">
+        <main id="main">
+            <h1>{{ user.username }}'s Wishlist</h1>
+            <Table>
+                {% for game in wishlist_games %}
+                    <tr>
+                        <td><a href="{{ url_for('wishlist_bp.show_wishlist', gameToDisplay=game.id) }}"><img src="{{ game.image }}" alt="game image"></a></td>
+                        <td>
+                            <a href="{{ url_for('wishlist_bp.show_wishlist', gameToDisplay=game.id) }}">
+                                <h2>{{ game.name }}</h2>
+                                <div class="description">
+                                    <p><i>Price:</i> {{ game.price }}</p>
+                                    <p><i>Publishers:</i> {{ game.publishers }}</p>
+                                    <p><i>Release Date:</i> {{ game.date }}</p>
+                                    <p><i>Genres:</i> {{ game.genres }}</p>
+                                </div>
+                            </a>
+                        </td>
+                    </tr>
+                {% endfor %}
+            </Table>
+            <div class="pagination">
+                {% if page > 1 %}
+                    <a class="nextorprev" href="{{ url_for('wishlist_bp.show_wishlist', page=page-1) }}">Previous</a>
+                {% endif %}
 
-    <div class="content">
-        <div id="container">
-            <main id="main">
-                <div class="description">
-                    <br>
-                    <h2>Hello :)</h2>
-                    <h2>Welcome to your wishlist!</h2>
-                </div>
-            </main>
-        </div>
+                {% for p in range(1, (total_number_games // per_page) + 2) %}
+                    {% if p == page %}
+                        <a class="active" href="{{ url_for('wishlist_bp.show_wishlist', page=p) }}">{{ p }}</a>
+                    {% else %}
+                        <a href="{{ url_for('wishlist_bp.show_wishlist', page=p) }}">{{ p }}</a>
+                    {% endif %}
+                {% endfor %}
+
+                {% if wishlist_games|length == per_page %}
+                    <a class="nextorprev" href="{{ url_for('wishlist_bp.show_wishlist', page=page+1) }}">Next</a>
+                {% endif %}
+            </div>
+        </main>
     </div>
-
+</div>
 
 {% endblock %}
