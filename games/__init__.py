@@ -28,7 +28,8 @@ from games.gameDescription import gameDescription
 from games.all_games import games
 from games.filtered_games import filtered_games
 from games.profile import profile
-
+from games.wishlistt import Wishlist
+from games.reviewss import Reviews
 
 def create_app():
 
@@ -43,11 +44,9 @@ def create_app():
     app.register_blueprint(search.search_blueprint)
     app.register_blueprint(filtered_games.filtered_blueprint)
     app.register_blueprint(profile.profile_blueprint)
+    app.register_blueprint(Wishlist.wishlist_blueprint)
+    app.register_blueprint(Reviews.reviews_blueprint)
 
-    @app.route('/wishlist')
-    def show_wishlist():
-        unique_genres = repo.repo_instance.get_unique_genres()  # Get unique genres
-        return render_template('wishlist.html', unique_genres=unique_genres)
 
     @app.route('/login')
     def show_login():
