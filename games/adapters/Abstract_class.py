@@ -75,21 +75,22 @@ class AbstractRepository(abc.ABC):
 
     def game_in_wishlist(self, username: str, game: Game) -> bool:
         raise NotImplementedError
-    @abstractmethod
+    @abc.abstractmethod
     def get_all_reviews(self):
         raise NotImplementedError
 
-    @abstractmethod
-    def get_review_by_id(self, review_id):
-        raise NotImplementedError
-
-    @abstractmethod
+    @abc.abstractmethod
     def add_review(self, review):
         raise NotImplementedError
 
-    @abstractmethod
-    def edit_review(self, review_id, content):
-        raise NotImplementedError
-    @abstractmethod
+    @abc.abstractmethod
     def delete_review(self, review_id):
+        raise NotImplementedError
+
+    @abc.abstractmethod
+    def get_reviews_by_game(self, game_id: int) -> list[Review]:
+        raise NotImplementedError
+
+    @abc.abstractmethod
+    def get_reviews_by_user(self, user_id: int) -> list[Review]:
         raise NotImplementedError

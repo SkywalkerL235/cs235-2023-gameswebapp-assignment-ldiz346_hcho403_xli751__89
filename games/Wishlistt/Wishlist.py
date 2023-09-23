@@ -1,7 +1,7 @@
 from flask import Blueprint, render_template, redirect, url_for, flash
 import games.adapters.Abstract_class as repo
 from games.gameDescription import services as game_services
-from games.wishlist import services as wishlist_services
+from games.Wishlistt import services as wishlist_services
 
 wishlist_blueprint = Blueprint('wishlist_bp', __name__)
 
@@ -25,3 +25,4 @@ def remove_from_wishlist(game_id):
     wishlist_services.remove_game_from_wishlist(repo.repo_instance, game_id)
     flash('Game removed from wishlist!', 'warning')
     return redirect(url_for('wishlist_bp.show_wishlist'))
+
