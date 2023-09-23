@@ -3,22 +3,57 @@
 
 
     <div class="content">
-            <div id="container">
-              <main id="main">
-                  <br>
-                  <div class="amp">
-                    <h3>{{ gameToDisplay.name }}</h3>
-                    <p><img src="{{ gameToDisplay.image }}" alt="game image"> </p>
-                    <p><i>Publishers:</i>  {{ gameToDisplay.publishers }}</p>
-                    <p><i>Release Date:</i>  {{ gameToDisplay.date }}</p>
-                    <p><i>Price:</i>  {{ gameToDisplay.price }}</p>
-                    <p><i>Genres:</i>  {{ gameToDisplay.genres }}</p>
-                    <p><i>About:  </i><br>
-                         {{ gameToDisplay.about }}
-                    </p>
-                </div>
-              </main>
-            </div>
+        <div id="container">
+            <main id="main">
+                <br>
+
+                    <div class="description_bubble">
+                    <div class="amp">
+                        <h3>{{ gameToDisplay.name }}</h3>
+                        <p><img src="{{ gameToDisplay.image }}" alt="game image"> </p>
+                        <p><i>Publishers:</i>  {{ gameToDisplay.publishers }}</p>
+                        <p><i>Release Date:</i>  {{ gameToDisplay.date }}</p>
+                        <p><i>Price:</i>  {{ gameToDisplay.price }}</p>
+                        <p><i>Genres:</i>  {{ gameToDisplay.genres }}</p>
+                        <p><i>About:  </i><br>
+                             {{ gameToDisplay.about }}
+                        </p>
+
+                        <div class="comments">
+                            <form action="/action_page.php" id="commentform">
+                              Name: <input type="text" name="starsform">
+                              <input type="submit">
+                            </form>
+                            <br>
+                            <textarea rows="5" cols="70" name="comment" form="commentform">
+                            comment...
+                            </textarea>
+
+                            {% for comment in gameToDisplay.reviews %}
+                            <div class="comment">
+                                <p>{{ comment }}</p>
+                            </div>
+                            {% endfor %}
+
+                            <div class="comment_block">
+                                <p>Hello :)</p>
+                            </div>
+
+                            <div class="comment_block">
+                                <p>Hello :)</p>
+                            </div>
+
+                            <div class="comment_block">
+                                <p>Hello :)</p>
+                            </div>
+
+                        </div>
+
+                    </div>
+                    </div>
+
+            </main>
+        </div>
     </div>
 
 

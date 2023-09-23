@@ -27,6 +27,7 @@ from games.search import search
 from games.gameDescription import gameDescription
 from games.all_games import games
 from games.filtered_games import filtered_games
+from games.profile import profile
 
 
 def create_app():
@@ -41,16 +42,12 @@ def create_app():
     app.register_blueprint(games.games_blueprint)
     app.register_blueprint(search.search_blueprint)
     app.register_blueprint(filtered_games.filtered_blueprint)
+    app.register_blueprint(profile.profile_blueprint)
 
     @app.route('/wishlist')
     def show_wishlist():
         unique_genres = repo.repo_instance.get_unique_genres()  # Get unique genres
         return render_template('wishlist.html', unique_genres=unique_genres)
-
-    @app.route('/profile')
-    def show_profile():
-        unique_genres = repo.repo_instance.get_unique_genres()  # Get unique genres
-        return render_template('profile.html', unique_genres=unique_genres)
 
     @app.route('/login')
     def show_login():
@@ -63,7 +60,3 @@ def create_app():
         return render_template('authentication/register.html', unique_genres=unique_genres)
 
     return app
-
-
-
-

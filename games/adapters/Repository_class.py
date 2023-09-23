@@ -47,7 +47,8 @@ class MemoryRepository(AbstractRepository):
                     'publishers': game.publisher.publisher_name,
                     'date': game.release_date,
                     'genres': official_genre_string,
-                    'reviews': len(game.reviews),
+                    'reviews': game.reviews,
+                    'reviews_count': len(game.reviews),
                     'id': game.game_id,
                     'about': game.description
                 }
@@ -102,7 +103,8 @@ class MemoryRepository(AbstractRepository):
                         'publishers': game.publisher.publisher_name,
                         'date': game.release_date,
                         'genres': official_genre_string,
-                        'reviews': len(game.reviews),
+                        'reviews': game.reviews,
+                        'reviews_count': len(game.reviews),
                         'id': game.game_id,
                         'about': game.description
                     }
@@ -131,9 +133,10 @@ class MemoryRepository(AbstractRepository):
                     'publishers': game.publisher.publisher_name,
                     'date': game.release_date,
                     'genres': official_genre_string,
-                    'reviews': len(game.reviews),
+                    'reviews': game.reviews,
+                    'reviews_count': len(game.reviews),
                     'id': game.game_id,
-                    'about': game.description
+                    'about': game.description,
                 }
                 break
         return the_game

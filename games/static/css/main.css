@@ -56,12 +56,50 @@ h3 {
         height: 280px;
     }
 
+.description_bubble {
+    border-radius: 19px;
+    box-shadow: 3px 3px 20px 0 black;
+    height: auto;
+    align-content: center;
+    padding: 10px 0 20px 50px;
+    background-color: #232424;
+    margin-top: 40px;
+    margin-right: 110px;
+    margin-left: 110px;
+}
+
+.comments {
+    border-radius: 19px;
+    box-shadow: 3px 3px 20px 0 black;
+    height: auto;
+    align-content: center;
+    padding: 10px 50px 20px 50px;
+    background-color: #272b2b;
+    margin-top: 60px;
+    margin-right: 80px;
+    margin-left: 80px;
+}
+
+.comment_block {
+    border-radius: 10px;
+    box-shadow: 3px 3px 20px 0 black;
+    height: auto;
+    align-content: center;
+    padding: 5px;
+    background-color: #232424;
+    margin-top: 6px;
+}
+
+.amp {
+    padding-right: 50px;
+}
+
 .amp p i{
     font-family: 'Courier';
     font-weight: bold;
     font-size: 19px;
     text-transform: uppercase;
-    color: #f5cf67
+    color: #f5cf67;
 }
 
 .amp p {
@@ -336,6 +374,10 @@ a {
 .identity td {
     border-bottom: 0;
     font-size: 20px;
+}
+
+.identity h2 {
+    color: #f5cf67;
 }
 
 .edit {
