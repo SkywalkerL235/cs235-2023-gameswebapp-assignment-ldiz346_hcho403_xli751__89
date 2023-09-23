@@ -188,8 +188,8 @@ class MemoryRepository(AbstractRepository):
         return game in user_wishlist.list_of_games()
 
     def add_review(self, review: Review):
-        if review not in self.reviews:
-            self.reviews.append(review)
+        if review not in self._reviews:
+            self._reviews.append(review)
 
     def get_all_reviews(self) -> list[Review]:
         return self.reviews

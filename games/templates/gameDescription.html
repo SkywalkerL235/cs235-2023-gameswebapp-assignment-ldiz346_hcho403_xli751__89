@@ -20,17 +20,19 @@
                         </p>
 
                         <div class="comments">
-                            <form action="/action_page.php" id="commentform">
-                              Name: <input type="text" name="starsform">
-                              <input type="submit">
+
+                            <form action="{{ url_for('gameDes_bp.add_review', gameToDisplay=gameToDisplay, gameId=gameToDisplay.id) }}" method="POST" id="comment_form">
+
+                                Rating: <input type="text" name="rating_form" placeholder="Enter your rating">
+                                <textarea rows="5" cols="70" name="comment_form" placeholder="Enter your comment"></textarea>
+
+                                <button type="submit">Submit</button>
                             </form>
+
                             <br>
-                            <textarea rows="5" cols="70" name="comment" form="commentform">
-                            comment...
-                            </textarea>
 
                             {% for comment in gameToDisplay.reviews %}
-                            <div class="comment">
+                            <div class="comment_block">
                                 <p>{{ comment }}</p>
                             </div>
                             {% endfor %}
@@ -38,17 +40,7 @@
                             <div class="comment_block">
                                 <p>Hello :)</p>
                             </div>
-
-                            <div class="comment_block">
-                                <p>Hello :)</p>
-                            </div>
-
-                            <div class="comment_block">
-                                <p>Hello :)</p>
-                            </div>
-
                         </div>
-
                     </div>
                     </div>
 

@@ -29,7 +29,7 @@ from games.all_games import games
 from games.filtered_games import filtered_games
 from games.profile import profile
 from games.Wishlistt import Wishlist
-from games.reviewss import Reviews
+#from games.reviewss import Reviews
 from games.authentication import authentication
 
 
@@ -47,7 +47,7 @@ def create_app():
     app.register_blueprint(filtered_games.filtered_blueprint)
     app.register_blueprint(profile.profile_blueprint)
     app.register_blueprint(Wishlist.wishlist_blueprint)
-    app.register_blueprint(Reviews.reviews_blueprint)
+    #app.register_blueprint(Reviews.reviews_blueprint)
     app.register_blueprint(authentication.authentication_blueprint)
 
     return app
