@@ -28,7 +28,7 @@ from games.gameDescription import gameDescription
 from games.all_games import games
 from games.filtered_games import filtered_games
 from games.profile import profile
-from games.wishlistt import Wishlist
+from games.Wishlistt import Wishlist
 from games.reviewss import Reviews
 
 def create_app():
