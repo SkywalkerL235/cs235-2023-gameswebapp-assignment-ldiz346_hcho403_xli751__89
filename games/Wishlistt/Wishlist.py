@@ -11,7 +11,7 @@ wishlist_blueprint = Blueprint('wishlist_bp', __name__)
 @login_required
 def show_wishlist():
     username = session['username']
-    wishlist = services.get_wishlist_by_username(username, repo.repo_instance)
+    wishlist = services.get_wishlist(username, repo.repo_instance)
     unique_genres = services.get_unique_genres(repo.repo_instance)
     user_details = services.get_user_details_by_username(username, repo.repo_instance)
 
@@ -45,7 +45,7 @@ def add_to_wishlist(game_id):
     username = session.get('username')
 
    # if not services.game_in_wishlist(username, repo.repo_instance,game_id):
-    services.add_game_to_wishlist(username, repo.repo_instance,game_id)
+    services.add_game_to_wishlist(username, repo.repo_instance, game)
     flash('Game added to wishlist!', 'success')
     #else:
         #flash('Game already in wishlist!', 'warning')
