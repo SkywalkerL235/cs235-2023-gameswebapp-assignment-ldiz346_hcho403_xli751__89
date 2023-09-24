@@ -62,7 +62,7 @@ class AbstractRepository(abc.ABC):
         raise NotImplementedError
 
     @abc.abstractmethod
-    def get_wishlist(self):
+    def get_wishlist(self, username: str):
         raise NotImplementedError
 
     @abc.abstractmethod
@@ -70,7 +70,7 @@ class AbstractRepository(abc.ABC):
         raise NotImplementedError
 
     @abc.abstractmethod
-    def remove_game_from_wishlist(self, game_id: int):
+    def remove_game_from_wishlist(self, username: str, game: Game):
         raise NotImplementedError
 
     def game_in_wishlist(self, username: str, game: Game) -> bool:
