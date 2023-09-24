@@ -54,10 +54,12 @@ def login():
             # Authenticate user.
             services.authenticate_user(user['user_name'], form.password.data, repo.repo_instance)
 
+            session['username'] = form.user_name.data
+
             # Initialise session and redirect the user to the home page.
             session.clear()
-            session['user_name'] = user['user_name']
-            return redirect(url_for('home_bp.show_home'))
+            next_url = request.args.get('next', url_for('home_bp.show_home'))  # Redirect to home if 'next' isn't set
+            return redirect(next_url)
 
         except services.UnknownUserException:
             user_name_not_recognised = 'Unrecognisable username!'

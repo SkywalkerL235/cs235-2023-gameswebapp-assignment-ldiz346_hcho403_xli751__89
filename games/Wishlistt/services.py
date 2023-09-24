@@ -11,3 +11,6 @@ def remove_game_from_wishlist(repo: AbstractRepository, game_id: int):
 
 def game_in_wishlist(repo: AbstractRepository, game_id: int):
     return repo.game_in_wishlist(game_id)
+
+def get_unique_genres(repo: AbstractRepository):
+    return repo.get_unique_genres()
