@@ -29,12 +29,10 @@ def show_gamedesc(gameToDisplay):
 
 
 @gameDes_blueprint.route('/game/<gameToDisplay>', methods=['GET', 'POST'])
+@login_required
 def add_review(gameToDisplay):
     game_id = int(gameToDisplay)
     the_game_by_id = services.get_game_by_id(repo.repo_instance, game_id)
-
-    if 'username' not in session:
-        return redirect(url_for('authentication_bp.login'))
 
     user_details = services.get_user_details_by_username(session['username'], repo.repo_instance)
 
@@ -43,6 +41,9 @@ def add_review(gameToDisplay):
         user_comment = request.form['comment_form']
 
         services.add_review(repo.repo_instance, the_game_by_id, user_rating, user_comment, user_details)  # Or however you would handle this
+
+    if 'username' not in session:
+        return redirect(url_for('authentication_bp.login'))
 
     the_game = services.get_game_description(repo.repo_instance, game_id)
     unique_genres = services.get_unique_genres(repo.repo_instance)
