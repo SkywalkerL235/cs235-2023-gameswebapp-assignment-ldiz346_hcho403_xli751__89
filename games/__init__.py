@@ -37,6 +37,7 @@ def create_app():
 
     app = Flask(__name__)
     app.config['SECRET_KEY'] = 'fcde46921f0c34d09935ffbfb07e14be832f1ede8f8e4ced'
+    app.config['SESSION_COOKIE_SECURE'] = True
     repo.repo_instance = MemoryRepository()
     populate(repo.repo_instance)
 

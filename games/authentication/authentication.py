@@ -56,8 +56,6 @@ def login():
 
             session['username'] = form.user_name.data
 
-            # Initialise session and redirect the user to the home page.
-            session.clear()
             next_url = request.args.get('next', url_for('home_bp.show_home'))  # Redirect to home if 'next' isn't set
             return redirect(next_url)
 
@@ -88,7 +86,7 @@ def logout():
 def login_required(view):
     @wraps(view)
     def wrapped_view(**kwargs):
-        if 'user_name' not in session:
+        if 'username' not in session:
             return redirect(url_for('authentication_bp.login'))
         return view(**kwargs)
     return wrapped_view

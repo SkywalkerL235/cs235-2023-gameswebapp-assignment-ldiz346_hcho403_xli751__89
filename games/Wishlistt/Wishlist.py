@@ -30,7 +30,7 @@ def add_to_wishlist(game_id):
     username = session.get('username')  # or another mechanism to get the current user's name
     if 'username' not in session:
         next_url = url_for('gameDes_bp.show_gamedesc', gameToDisplay=game_id)
-        login_url = url_for('authentication_bp.login', next=next_url)  # Assuming 'auth_bp.login' is your login route
+        login_url = url_for('authentication_bp.login', next=next_url)
         return redirect(login_url)
 
     # Check if the game is already in the wishlist
