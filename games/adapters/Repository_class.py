@@ -190,9 +190,6 @@ class MemoryRepository(AbstractRepository):
 
     def game_in_wishlist(self, username: str, game: Game) -> bool:
         user_wishlist = self._wishlists.get(username)
-        if not user_wishlist:
-            self.user_wishlist[username] = Wishlist(username)
-            user_wishlist = self._wishlists.get(username)
         return game in user_wishlist.list_of_games()
 
     def add_review(self, review: Review):

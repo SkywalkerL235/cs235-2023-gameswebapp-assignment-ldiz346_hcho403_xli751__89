@@ -20,14 +20,15 @@ def show_wishlist():
 def add_to_wishlist(game_id):
     game_id = int(game_id)
 
-    game = services.get_game_by_id(game_id)
+    game = services.get_game_by_id(repo.repo_instance,game_id)
+
     username = session.get('username')
 
-    if not services.game_in_wishlist(username, game):
-        services.add_game_to_wishlist(username, game)
-        flash('Game added to wishlist!', 'success')
-    else:
-        flash('Game already in wishlist!', 'warning')
+   # if not services.game_in_wishlist(username, repo.repo_instance,game_id):
+    services.add_game_to_wishlist(username, repo.repo_instance,game_id)
+    flash('Game added to wishlist!', 'success')
+    #else:
+        #flash('Game already in wishlist!', 'warning')
 
     return redirect(url_for('gameDes_bp.show_gamedesc', gameToDisplay=game_id))
 
