@@ -10,6 +10,8 @@ wishlist_blueprint = Blueprint('wishlist_bp', __name__)
 @wishlist_blueprint.route('/wishlist')
 @login_required
 def show_wishlist():
+    if 'username' not in session:
+        return redirect(url_for('authentication_bp.login'))
     username = session['username']
     wishlist = services.get_wishlist(username, repo.repo_instance)
 
