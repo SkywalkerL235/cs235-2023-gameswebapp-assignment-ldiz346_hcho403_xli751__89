@@ -1,4 +1,4 @@
-'''from flask import Blueprint, render_template, request, redirect, url_for
+from flask import Blueprint, render_template, request, redirect, url_for
 import games.adapters.Abstract_class as repo
 from games.reviewss import services
 
@@ -40,4 +40,3 @@ def delete_review(review_id):
     return redirect(url_for('reviews_bp.show_reviews'))
 
 # Additional routes and logic for reviews can be added here as necessary
-'''

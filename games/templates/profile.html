@@ -27,7 +27,29 @@
                         </tr>
                     </table>
                 </div>
-
+                <div class="wishlist">
+                    <h3>Wishlist</h3>
+                    <table>
+                        {% for game in wishlist %}
+                        <tr>
+                            <td style="width:510px">
+                                <a href="{{ url_for('gameDes_bp.show_gamedesc', gameToDisplay=game.id) }}">
+                                    <img src="{{ game.image }}" alt="game image">
+                                </a>
+                            </td>
+                            <td>
+                                <a href="{{ url_for('gameDes_bp.show_gamedesc', gameToDisplay=game.id) }}">
+                                    <h2>{{ game.name }}</h2>
+                                    <!-- ... other game details ... -->
+                                    <form action="{{ url_for('wishlist_bp.remove_from_wishlist', game_id=game.id) }}" method="post">
+                                        <button type="submit">Remove from Wishlist</button>
+                                    </form>
+                                </a>
+                            </td>
+                        </tr>
+                        {% endfor %}
+                    </table>
+                </div>
                 <div class="history">
                     <table>
                         <h3>History</h3>

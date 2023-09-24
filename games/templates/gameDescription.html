@@ -18,10 +18,15 @@
                         <p><i>About:  </i><br>
                              {{ gameToDisplay.about }}
                         </p>
-
+                        <div class="wishlist-action">
+                            <form action="{{ url_for('wishlist_bp.add_to_wishlist', game_id=gameToDisplay.id) }}" method="post">
+                                <button type="submit">Add to Wishlist</button>
+                            </form>
+                        </div>
                         <div class="comments">
 
-                            <form action="{{ url_for('gameDes_bp.add_review', gameToDisplay=gameToDisplay, gameId=gameToDisplay.id) }}" method="POST" id="comment_form">
+                            <form action="{{ url_for('gameDes_bp.add_review', gameToDisplay=gameToDisplay, gameId=gameToDisplay.game_id) }}" method="POST" id="comment_form">
+
 
                                 Rating: <input type="text" name="rating_form" placeholder="Enter your rating">
                                 <textarea rows="5" cols="70" name="comment_form" placeholder="Enter your comment"></textarea>
