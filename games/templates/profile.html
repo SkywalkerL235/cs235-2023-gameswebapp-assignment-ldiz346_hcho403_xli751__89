@@ -1,7 +1,6 @@
 {% extends 'layout.html' %}
 {% block content %}
 
-
     <div class="content">
         <div id="container">
             <main id="main">
@@ -11,22 +10,26 @@
                     <table>
                         <h3>Identity</h3>
                         <tr>
-                            <td style="width:430px" ><h2>Name</h2></td>
-                            <td style="width:50px" >:</td>
-                            <td>Some Guy</td>
+                            <td style="width:430px"><h2>Name</h2></td>
+                            <td style="width:50px">:</td>
+                            <!-- Fetching the username dynamically -->
+                            <td>{{ user_details.username }}</td>
                         </tr>
                         <tr>
                             <td><h2>Reviews Count</h2></td>
                             <td>:</td>
-                            <td>-1000</td>
+                            <!-- Fetching the number of reviews by this user dynamically -->
+                            <td>{{ user_details.reviews_count }}</td>
                         </tr>
                         <tr>
                             <td><h2>Wishlist Count</h2></td>
                             <td>:</td>
-                            <td>1000</td>
+                            <!-- Fetching the number of games in user's wishlist dynamically -->
+                            <td>{{ wishlist|length }}</td>
                         </tr>
                     </table>
                 </div>
+
                 <div class="wishlist">
                     <h3>Wishlist</h3>
                     <table>
@@ -50,26 +53,32 @@
                         {% endfor %}
                     </table>
                 </div>
+
                 <div class="history">
                     <table>
                         <h3>History</h3>
                         {% for game in listOfGames %}
                         <tr>
-                            <td style="width:510px" ><a href="{{ url_for('gameDes_bp.show_gamedesc', gameToDisplay=game.id) }}" > <img src="{{ game.image }}" alt="game image"> </a></td>
-                            <td><a href="{{ url_for('gameDes_bp.show_gamedesc', gameToDisplay=game.id) }}">
-                                <h2>{{ game.name }}</h2>
-                                <div class="description">
-                                <p><i>Price:</i> {{ game.price }}</p><p><i>Publishers:</i> {{ game.publishers }}</p><p><i>Release Date:</i>
-                                  {{ game.date }}</p><p><i>Genres:</i> {{ game.genres }}</p><p><i>Comments:</i> ({{ game.reviews_count }})</p>
-                                </div>
-                            </a></td>
+                            <td style="width:510px">
+                                <a href="{{ url_for('gameDes_bp.show_gamedesc', gameToDisplay=game.id) }}">
+                                    <img src="{{ game.image }}" alt="game image">
+                                </a>
+                            </td>
+                            <td>
+                                <a href="{{ url_for('gameDes_bp.show_gamedesc', gameToDisplay=game.id) }}">
+                                    <h2>{{ game.name }}</h2>
+                                    <div class="description">
+                                    <p><i>Price:</i> {{ game.price }}</p><p><i>Publishers:</i> {{ game.publishers }}</p><p><i>Release Date:</i> {{ game.date }}</p><p><i>Genres:</i> {{ game.genres }}</p><p><i>Comments:</i> ({{ game.reviews_count }})</p>
+                                    </div>
+                                </a>
+                            </td>
                         </tr>
                         {% endfor %}
                     </table>
                 </div>
+
             </main>
         </div>
     </div>
-
 
 {% endblock %}
