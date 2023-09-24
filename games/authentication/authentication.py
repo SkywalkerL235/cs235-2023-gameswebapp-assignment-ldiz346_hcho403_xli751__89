@@ -57,7 +57,7 @@ def login():
             # Initialise session and redirect the user to the home page.
             session.clear()
             session['user_name'] = user['user_name']
-            return redirect(url_for('home_bp.home'))
+            return redirect(url_for('home_bp.show_home'))
 
         except services.UnknownUserException:
             user_name_not_recognised = 'Unrecognisable username!'
