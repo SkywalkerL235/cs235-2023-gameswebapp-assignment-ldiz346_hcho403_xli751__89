@@ -66,7 +66,7 @@ class AbstractRepository(abc.ABC):
         raise NotImplementedError
 
     @abc.abstractmethod
-    def add_game_to_wishlist(self, game_id: int):
+    def add_game_to_wishlist(self, game: Game):
         raise NotImplementedError
 
     @abc.abstractmethod
