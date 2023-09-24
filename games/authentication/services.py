@@ -33,8 +33,8 @@ def add_user(username: str, password: str, repo: AbstractRepository):
     password_hash = generate_password_hash(password)
 
     # Create & store
-    user = User(username, password_hash)
-    repo.add_user(user)
+    user2 = User(username, password_hash)
+    repo.add_user(user2)
 
 
 def get_user(username: str, repo: AbstractRepository):

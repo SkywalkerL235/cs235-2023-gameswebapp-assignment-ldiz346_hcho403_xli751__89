@@ -12,7 +12,6 @@ class MemoryRepository(AbstractRepository):
         self.publishers = list()
         self.users = list()
         self._wishlists = {}
-        self.user_wishlist = {}
         self._reviews = list()
 
         # games_file_name = "games/adapters/data/games.csv"
@@ -162,21 +161,29 @@ class MemoryRepository(AbstractRepository):
 
     def add_user(self, user: User):
         self.users.append(user)
+        self._wishlists[user.username] = Wishlist(user)
+        print(f"After adding user: {self._wishlists}")  # Debugging print
 
     def get_user(self, user_name):
         return next((user for user in self.users if user.username == user_name), None)
 
     def add_game_to_wishlist(self, username: str, game: Game):
-        user_wishlist = self._wishlists.get(username)
-        if not user_wishlist:
-            raise ValueError(f"Wishlist for user {username} not found!")
+        print(f"Before adding game: {self._wishlists}")  # Debugging print
+        username = username.strip().lower()
+
+        print(f"Adding game to wishlist for user: {username}")  # Debugging print
+        print(f"Current wishlists: {self._wishlists}")  # Debugging print
+
+        user_wishlist = self._wishlists[username]
+        if user_wishlist is None:
+            raise ValueError(f"Wishlist does not exist for user {username}")
         user_wishlist.add_game(game)
 
     def remove_game_from_wishlist(self, username: str, game: Game):
-        user_wishlist = self._wishlists.get(username)
-        if not user_wishlist:
-            raise ValueError(f"Wishlist for user {username} not found!")
-        user_wishlist.remove_game(game)
+        if username not in self._wishlists:  # Check if the username exists in _wishlists.
+            raise ValueError(f"Wishlist does not exist for user {username}")
+        else:
+            self._wishlists[username].remove_game(game)
 
     def get_wishlist(self, username: str) -> Wishlist:
         return self._wishlists.get(username)
@@ -184,7 +191,8 @@ class MemoryRepository(AbstractRepository):
     def game_in_wishlist(self, username: str, game: Game) -> bool:
         user_wishlist = self._wishlists.get(username)
         if not user_wishlist:
-            raise ValueError(f"Wishlist for user {username} not found!")
+            self.user_wishlist[username] = Wishlist(username)
+            user_wishlist = self._wishlists.get(username)
         return game in user_wishlist.list_of_games()
 
     def add_review(self, review: Review):
