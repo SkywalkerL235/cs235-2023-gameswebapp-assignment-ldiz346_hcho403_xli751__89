@@ -18,15 +18,26 @@ def get_game_by_id(repo: AbstractRepository, game_id):
     return repo.get_game_by_id(game_id)
 
 
-def add_review(repo: AbstractRepository, current_game, user_rating, user_comment):
-    example_user = User("HaChoi486", "HelloThere486486")
-    repo.add_user(example_user)
-
-    review = Review(example_user, current_game, user_rating, user_comment)
-    example_user.add_review(review)
+def add_review(repo: AbstractRepository, current_game, user_rating, user_comment, user_details):
+    review = Review(user_details, current_game, user_rating, user_comment)
+    user_details.add_review(review)
     return repo.add_review(review)
 
 
 def get_game_comments(repo: AbstractRepository, game_id):
     current_game = repo.get_game_by_id(game_id)
     return repo.get_reviews_by_game(current_game)
+
+
+def get_user_details_by_username(username, repo):
+    """
+    Fetch user details by a given username from the memory repository.
+    """
+    user = repo.get_user(username)
+    if user:
+        # Convert the User object to dictionary or another structure if necessary.
+        return user  # Adjust this based on how you're using the user object in your templates.
+    raise ValueError("User not found")
+
+def form_comment(comment: Review):
+    return None
