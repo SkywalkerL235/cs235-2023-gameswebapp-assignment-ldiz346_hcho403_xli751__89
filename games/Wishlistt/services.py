@@ -51,10 +51,10 @@ def get_user_details_by_username(username, repo):
 def get_game_description(repo: AbstractRepository, game_id):
     return repo.get_game_description(game_id)
 
-def get_wishlist_description(wishlist):
+def get_wishlist_description(repo: AbstractRepository, wishlist):
     wishlist_description = []
     for game in wishlist:
         game_id = game.game_id
-        current = game.get_game_description(game_id)
+        current = get_game_description(repo, game_id)
         wishlist_description.append(current)
     return wishlist_description

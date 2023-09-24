@@ -12,6 +12,7 @@ wishlist_blueprint = Blueprint('wishlist_bp', __name__)
 def show_wishlist():
     username = session['username']
     wishlist = services.get_wishlist(username, repo.repo_instance)
+
     unique_genres = services.get_unique_genres(repo.repo_instance)
     user_details = services.get_user_details_by_username(username, repo.repo_instance)
 
@@ -23,10 +24,11 @@ def show_wishlist():
     start_idx = (page - 1) * per_page
     end_idx = start_idx + per_page
     wishlist_subset = wishlist[start_idx:end_idx]
+    list_to_show = services.get_wishlist_description(repo.repo_instance, wishlist_subset)
 
     return render_template(
         'wishlist.html',
-        wishlist_games=wishlist_subset,
+        wishlist_games=list_to_show,
         unique_genres=unique_genres,
         user=user_details,  # sending user details to the template
         page=page,
