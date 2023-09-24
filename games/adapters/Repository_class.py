@@ -210,6 +210,15 @@ class MemoryRepository(AbstractRepository):
     def delete_review(self, review_id: int):
         self.reviews = [review for review in self._reviews if review.review_id != review_id]
 
+    def form_review(self, review: Review):
+        user = str(review.user)
+        the_review = {
+            'user_name': user[6:-1],
+            'rating': review.rating,
+            'comment': review.comment,
+        }
+        return the_review
+
 
 
 

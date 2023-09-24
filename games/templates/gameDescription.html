@@ -41,7 +41,7 @@
 
                             {% for comment in reviews %}
                             <div class="comment_block">
-                                <p>{{ comment }}</p>
+                                <p>{{ comment.user_name }} ({{ comment.rating }}/5) :  {{ comment.comment }}</p>
                             </div>
                             {% endfor %}
                         </div>

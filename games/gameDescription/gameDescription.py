@@ -13,11 +13,18 @@ def show_gamedesc(gameToDisplay):
     the_game = services.get_game_description(repo.repo_instance, game_id)
     unique_genres = services.get_unique_genres(repo.repo_instance)
     game_comments = services.get_game_comments(repo.repo_instance, game_id)
+
+    review_list = []
+
+    for comment in game_comments:
+        current = services.form_review(repo.repo_instance, comment)
+        review_list.append(current)
+
     return render_template(
         'gameDescription.html',
         gameToDisplay=the_game,
         unique_genres=unique_genres,
-        reviews=game_comments
+        reviews=review_list
     )
 
 
@@ -41,8 +48,14 @@ def add_review(gameToDisplay):
     unique_genres = services.get_unique_genres(repo.repo_instance)
     game_comments = services.get_game_comments(repo.repo_instance, game_id)
 
+    review_list = []
+
+    for comment in game_comments:
+        current = services.form_review(repo.repo_instance, comment)
+        review_list.append(current)
+
     return render_template(
         'gameDescription.html',
         gameToDisplay=the_game,
         unique_genres=unique_genres,
-        reviews=game_comments)
+        reviews=review_list)

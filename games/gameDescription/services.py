@@ -39,5 +39,6 @@ def get_user_details_by_username(username, repo):
         return user  # Adjust this based on how you're using the user object in your templates.
     raise ValueError("User not found")
 
-def form_comment(comment: Review):
-    return None
+
+def form_review(repo: AbstractRepository, review: Review):
+    return repo.form_review(review)

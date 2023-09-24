@@ -94,3 +94,7 @@ class AbstractRepository(abc.ABC):
     @abc.abstractmethod
     def get_reviews_by_user(self, user_id: int) -> list[Review]:
         raise NotImplementedError
+
+    @abc.abstractmethod
+    def form_review(self, comment: Review):
+        raise NotImplementedError
