@@ -46,3 +46,15 @@ def get_user_details_by_username(username, repo):
         # Convert the User object to dictionary or another structure if necessary.
         return user  # Adjust this based on how you're using the user object in your templates.
     raise ValueError("User not found")
+
+
+def get_game_description(repo: AbstractRepository, game_id):
+    return repo.get_game_description(game_id)
+
+def get_wishlist_description(wishlist):
+    wishlist_description = []
+    for game in wishlist:
+        game_id = game.game_id
+        current = game.get_game_description(game_id)
+        wishlist_description.append(current)
+    return wishlist_description
