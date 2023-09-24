@@ -2,6 +2,7 @@
 from flask import Flask, render_template, redirect, url_for, request
 import games.adapters.Abstract_class as repo
 from games.adapters.Repository_class import MemoryRepository, populate
+from pathlib import Path
 
 '''# TODO: Access to the games should be implemented via the repository pattern and using blueprints, so this can not
 #  stay here!
@@ -33,11 +34,14 @@ from games.Wishlistt import Wishlist
 from games.authentication import authentication
 
 
-def create_app():
+def create_app(test_config=None):
 
     app = Flask(__name__)
-    app.config['SECRET_KEY'] = 'fcde46921f0c34d09935ffbfb07e14be832f1ede8f8e4ced'
-    app.config['SESSION_COOKIE_SECURE'] = True
+    app.config.from_object('config.Config')
+    #data_path = Path('games') / 'adapters' / 'data'
+    if test_config is not None:
+        app.config.from_mapping(test_config)
+        #data_path = app.config['TEST_DATA_PATH']
     repo.repo_instance = MemoryRepository()
     populate(repo.repo_instance)
 
