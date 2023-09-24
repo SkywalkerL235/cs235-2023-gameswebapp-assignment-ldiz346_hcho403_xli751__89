@@ -25,3 +25,8 @@ def add_review(repo: AbstractRepository, current_game, user_rating, user_comment
     review = Review(example_user, current_game, user_rating, user_comment)
     example_user.add_review(review)
     return repo.add_review(review)
+
+
+def get_game_comments(repo: AbstractRepository, game_id):
+    current_game = repo.get_game_by_id(game_id)
+    return repo.get_reviews_by_game(current_game)

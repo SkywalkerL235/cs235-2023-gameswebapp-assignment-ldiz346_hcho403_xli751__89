@@ -192,18 +192,18 @@ class MemoryRepository(AbstractRepository):
             self._reviews.append(review)
 
     def get_all_reviews(self) -> list[Review]:
-        return self.reviews
+        return self._reviews
 
-    def get_reviews_by_game(self, game_id: int) -> list[Review]:
-        game_reviews = [review for review in self.reviews if review.game_id == game_id]
+    def get_reviews_by_game(self, game: Game) -> list[Review]:
+        game_reviews = [review for review in self._reviews if review.game == game]
         return game_reviews
 
     def get_reviews_by_user(self, user_id: int) -> list[Review]:
-        user_reviews = [review for review in self.reviews if review.user_id == user_id]
+        user_reviews = [review for review in self._reviews if review.user_id == user_id]
         return user_reviews
 
     def delete_review(self, review_id: int):
-        self.reviews = [review for review in self.reviews if review.review_id != review_id]
+        self.reviews = [review for review in self._reviews if review.review_id != review_id]
 
 
 
