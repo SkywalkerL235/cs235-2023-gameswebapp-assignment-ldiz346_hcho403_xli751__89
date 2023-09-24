@@ -8,54 +8,21 @@
                 <div class="identity">
                     <i class="fa fa-pen fa-xl edit"></i>
                     <table>
-                        <h3>Identity</h3>
+                        <h3>Profile</h3>
                         <tr>
                             <td style="width:430px" ><h2>Name</h2></td>
                             <td style="width:50px" >:</td>
                             <td>{{ user.username }}</td>
                         </tr>
-                        <tr>
-                            <td><h2>Reviews Count</h2></td>
-                            <td>:</td>
-                            <td>{{ user.reviews_count }}</td>
-                        </tr>
-                        <tr>
-                            <td><h2>Wishlist Count</h2></td>
-                            <td>:</td>
-                            <td>{{ user.wishlist_count }}</td>
-                        </tr>
                     </table>
                 </div>
 
 
-                <div class="wishlist">
-                    <h3>Wishlist</h3>
-                    <table>
-                        {% for game in wishlist %}
-                        <tr>
-                            <td style="width:510px">
-                                <a href="{{ url_for('gameDes_bp.show_gamedesc', gameToDisplay=game.id) }}">
-                                    <img src="{{ game.image }}" alt="game image">
-                                </a>
-                            </td>
-                            <td>
-                                <a href="{{ url_for('gameDes_bp.show_gamedesc', gameToDisplay=game.id) }}">
-                                    <h2>{{ game.name }}</h2>
-                                    <!-- ... other game details ... -->
-                                    <form action="{{ url_for('wishlist_bp.remove_from_wishlist', game_id=game.id) }}" method="post">
-                                        <button type="submit">Remove from Wishlist</button>
-                                    </form>
-                                </a>
-                            </td>
-                        </tr>
-                        {% endfor %}
-                    </table>
-                </div>
 
                 <div class="history">
                     <table>
-                        <h3>History</h3>
-                        {% for game in listOfGames %}
+                        <h3>Wishlist</h3>
+                        {% for game in wishlist_games %}
                         <tr>
                             <td style="width:510px">
                                 <a href="{{ url_for('gameDes_bp.show_gamedesc', gameToDisplay=game.id) }}">

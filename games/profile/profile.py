@@ -14,14 +14,17 @@ def show_profile():
     if 'username' not in session:
         return redirect(url_for('authentication_bp.login'))
 
-    user_details = services.get_user_details_by_username(session['username'], repo.repo_instance)
-    listofgames = services.get_games(repo.repo_instance)
-    wishlist = services.get_wishlist_by_username(session['username'], repo.repo_instance)
+    username = session['username']
+    wishlist = services.get_wishlist(username, repo.repo_instance)
 
+    unique_genres = services.get_unique_genres(repo.repo_instance)
+    user_details = services.get_user_details_by_username(session['username'], repo.repo_instance)
+
+    list_to_show = services.get_wishlist_description(repo.repo_instance, wishlist)
 
     return render_template(
         'profile.html',
         user=user_details,
-        listOfGames=listofgames,
-        wishlist=wishlist
+        wishlist_games=list_to_show,
+        unique_genres=unique_genres,
     )
