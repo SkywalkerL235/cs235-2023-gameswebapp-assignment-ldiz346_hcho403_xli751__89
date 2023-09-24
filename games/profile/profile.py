@@ -17,12 +17,11 @@ def show_profile():
     user_details = services.get_user_details_by_username(session['username'], repo.repo_instance)
     listofgames = services.get_games(repo.repo_instance)
     wishlist = services.get_wishlist_by_username(session['username'], repo.repo_instance)
-    unique_genres = services.get_unique_genres(repo.repo_instance)
+
 
     return render_template(
         'profile.html',
         user=user_details,
         listOfGames=listofgames,
-        wishlist=wishlist,
-        unique_genres=unique_genres
+        wishlist=wishlist
     )
