@@ -10,25 +10,23 @@
                     <table>
                         <h3>Identity</h3>
                         <tr>
-                            <td style="width:430px"><h2>Name</h2></td>
-                            <td style="width:50px">:</td>
-                            <!-- Fetching the username dynamically -->
-                            <td>{{ user_details.username }}</td>
+                            <td style="width:430px" ><h2>Name</h2></td>
+                            <td style="width:50px" >:</td>
+                            <td>{{ user.username }}</td>
                         </tr>
                         <tr>
                             <td><h2>Reviews Count</h2></td>
                             <td>:</td>
-                            <!-- Fetching the number of reviews by this user dynamically -->
-                            <td>{{ user_details.reviews_count }}</td>
+                            <td>{{ user.reviews_count }}</td>
                         </tr>
                         <tr>
                             <td><h2>Wishlist Count</h2></td>
                             <td>:</td>
-                            <!-- Fetching the number of games in user's wishlist dynamically -->
-                            <td>{{ wishlist|length }}</td>
+                            <td>{{ user.wishlist_count }}</td>
                         </tr>
                     </table>
                 </div>
+
 
                 <div class="wishlist">
                     <h3>Wishlist</h3>
