@@ -19,11 +19,16 @@
                              {{ gameToDisplay.about }}
                         </p>
                         <div class="wishlist-action">
-                            <form action="{{ url_for('wishlist_bp.add_to_wishlist', game_id=gameToDisplay.id) }}" method="post">
-                                <button type="submit">Add to Wishlist</button>
-                            </form>
+                            {% if gameToDisplay.id in wishlist_game_ids %}
+                                <form action="{{ url_for('wishlist_bp.remove_from_wishlist', game_id=gameToDisplay.id) }}" method="post">
+                                    <button type="submit">Remove from Wishlist</button>
+                                </form>
+                            {% else %}
+                                <form action="{{ url_for('wishlist_bp.add_to_wishlist', game_id=gameToDisplay.id) }}" method="post">
+                                    <button type="submit">Add to Wishlist</button>
+                                </form>
+                            {% endif %}
                         </div>
-                        <div class="comments">
 
                             <form action="{{ url_for('gameDes_bp.add_review', gameToDisplay=gameToDisplay, gameId=gameToDisplay.game_id) }}" method="POST" id="comment_form">
 
