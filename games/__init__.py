@@ -7,7 +7,7 @@ from games.adapters.Repository_class import MemoryRepository, populate
 
 from pathlib import Path
 
-from sqlalchemy import create_engine
+from sqlalchemy import create_engine, inspect
 from sqlalchemy.orm import sessionmaker, clear_mappers
 from sqlalchemy.pool import NullPool
 
@@ -41,8 +41,7 @@ def create_app(test_config=None):
     # When using memory repository...
     if app.config['REPOSITORY'] == 'memory':
         repo.repo_instance = MemoryRepository()
-        database_mode = False
-        populate(data_path, repo.repo_instance, database_mode)
+        populate(data_path, repo.repo_instance)
 
     # When using database repository...
     elif app.config['REPOSITORY'] == 'database':
@@ -60,18 +59,18 @@ def create_app(test_config=None):
         repo.repo_instance = database_repository.SqlAlchemyRepository(session_factory)
 
         # For testing / first-time use of web app
-        if app.config['TESTING'] == 'True' or len(database_engine.table_names()) == 0:
+        if app.config['TESTING'] == 'True' or len(inspect(database_engine).get_table_names()) == 0:
             print("REPOPULATING DATABASE...")
             clear_mappers()
             metadata.create_all(database_engine)
             for table in reversed(metadata.sorted_tables):  # Remove any data from the tables.
-                database_engine.execute(table.delete())
+                with database_engine.connect() as conn:
+                    conn.execute(table.delete())
 
             # generate mappings
             map_model_to_tables()
 
-            database_mode = True
-            populate(data_path, repo.repo_instance, database_mode)
+            populate(data_path, repo.repo_instance)
             print("REPOPULATING DATABASE... FINISHED")
 
         # Just generate mappings

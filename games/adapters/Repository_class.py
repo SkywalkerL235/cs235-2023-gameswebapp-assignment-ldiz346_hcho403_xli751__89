@@ -1,4 +1,5 @@
 from pathlib import Path
+from typing import List
 
 from games.adapters.datareader.csvdatareader import GameFileCSVReader
 from games.adapters.Abstract_class import AbstractRepository
@@ -220,6 +221,21 @@ class MemoryRepository(AbstractRepository):
         }
         return the_review
 
+    def add_multiple_publishers(self, publishers: List[Publisher]):
+        for publisher in publishers:
+            if publisher not in self.publishers:
+                self.publishers.append(publisher)
+
+    def add_multiple_games(self, games: List[Game]):
+        for game in games:
+            if game not in self.games:
+                self.games.append(game)
+
+    def add_multiple_genres(self, genres: List[Genre]):
+        for genre in genres:
+            if genre not in self.genres:
+                self.genres.append(genre)
+
 
 # def populate(repo: MemoryRepository):
 #     dir_name = os.path.dirname(os.path.abspath(__file__))
@@ -238,39 +254,7 @@ class MemoryRepository(AbstractRepository):
 #     repo.add_publisher_set(publishers)
 
 
-def populate(data_path: Path, repo: AbstractRepository, database_mode: bool):
-    # # Load games into the repository.
-    # load_games(data_path, repo, database_mode)
-    #
-    # games_filename = str(data_path / "games.csv")
-    #
-    # for row in read_csv_file(games_filename):
-    #     try:
-    #         game_id = int(row[0])
-    #         title = row[1]
-    #         publisher = Publisher(row[16])
-    #         genre_names = row[18].split(",")
-    #
-    #         game = Game(game_id, title)
-    #
-    #         game.release_date = row[2]
-    #         game.price = float(row[3])
-    #         game.description = row[4]
-    #         game.image_url = row[7]
-    #
-    #         game.publisher = publisher
-    #
-    #         for genre_name in genre_names:
-    #             genre = Genre(genre_name.strip())
-    #             game.add_genre(genre)
-    #
-    #         # Add the Game to the repository.
-    #         repo.add_game(game)
-    #
-    #     except ValueError as e:
-    #         print(f"Skipping row due to invalid data: {e}")
-    #     except KeyError as e:
-    #         print(f"Skipping row due to missing key: {e}")
+def populate(data_path: Path, repo: AbstractRepository):
     games_file_name = str(Path(data_path) / "games.csv")
 
     reader = GameFileCSVReader(games_file_name)
@@ -281,8 +265,12 @@ def populate(data_path: Path, repo: AbstractRepository, database_mode: bool):
     games = reader.dataset_of_games
     genres = reader.dataset_of_genres
 
-    for game in games:
-        repo.add_game(game)
-    repo.add_genre_set(genres)
-    repo.add_publisher_set(publishers)
+    # Add publishers to the repo
+    repo.add_multiple_publishers(publishers)
+
+    # Add genres to the repo
+    repo.add_multiple_genres(genres)
+
+    # Add games to the repo
+    repo.add_multiple_games(games)
 

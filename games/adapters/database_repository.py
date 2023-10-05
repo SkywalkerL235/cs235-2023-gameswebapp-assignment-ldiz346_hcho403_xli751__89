@@ -74,11 +74,15 @@ class SqlAlchemyRepository(AbstractRepository, ABC):
 
     # region Game_data
     def get_game_by_id(self, game_id: int) -> Game:
-        game = self._session_cm.session.query(Game).filter(_Game__game_id).one()
+        game = self._session_cm.session.query(Game).filter(Game._Game__game_id).one()
         return game
 
     def get_games(self) -> List[Game]:
         games = self._session_cm.session.query(Game).order_by(Game._Game__game_id).all()
+        return games
+
+    def search_games_by_title(self, title_string: str) -> List[Game]:
+        games = self._session_cm.session.query(Game).filter(Game._Game__game_title).all()
         return games
 
     def get_game_description(self, game_id: int) -> Game:
@@ -343,6 +347,3 @@ class SqlAlchemyRepository(AbstractRepository, ABC):
         return False
 
     # endregion
-
-    def search_games_by_title(self, title_string: str) -> List[Game]:
-        pass

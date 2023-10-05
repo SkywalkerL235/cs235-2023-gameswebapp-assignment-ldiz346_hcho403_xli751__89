@@ -1,4 +1,6 @@
 import abc
+from typing import List
+
 from games.domainmodel.model import Game, Genre, Publisher, User, Review
 
 repo_instance = None
@@ -99,4 +101,16 @@ class AbstractRepository(abc.ABC):
 
     @abc.abstractmethod
     def form_review(self, comment: Review):
+        raise NotImplementedError
+
+    @abc.abstractmethod
+    def add_multiple_publishers(self, publishers: List[Publisher]):
+        raise NotImplementedError
+
+    @abc.abstractmethod
+    def add_multiple_games(self, games: List[Game]):
+        raise NotImplementedError
+
+    @abc.abstractmethod
+    def add_multiple_genres(self, genres: List[Genre]):
         raise NotImplementedError

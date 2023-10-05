@@ -90,8 +90,8 @@ def map_model_to_tables():
     mapper(Review, review_table, properties={
         '_Review__timestamp': review_table.c.timestamp,
         '_Review__review_id': review_table.c.review_id,
-        '_Review__user_id': relationship(User, back_populates='_User__reviews'),
-        '_Review__game_id': review_table.c.game_id,
+        '_Review__user_id': relationship(User, foreign_keys=[review_table.c.user_id]),
+        '_Review__game_id': relationship(Game, foreign_keys=[review_table.c.game_id]),
         '_Review__rating': review_table.c.rating,
         '_Review__comment': review_table.c.comment,
     })
@@ -100,7 +100,7 @@ def map_model_to_tables():
         '_User__user_id': user_table.c.user_id,
         '_User__user_name': user_table.c.user_name,
         '_User__user_password': user_table.c.user_password,
-        '_User__user_reviews': relationship(Review)
+        '_User__user_reviews': relationship(Review, foreign_keys=[user_table.c.user_reviews])
     })
 
     mapper(Wishlist, wishlist_table, properties={
