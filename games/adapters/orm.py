@@ -38,7 +38,6 @@ user_table = Table(
     Column('user_id', Integer, primary_key=True, autoincrement=True),
     Column('user_name', String(20), unique=True, nullable=False),
     Column('user_password', String(20), nullable=False),
-    Column('user_reviews', String(255), ForeignKey('reviews.review_id'), nullable=True)
 )
 
 review_table = Table(
@@ -100,13 +99,9 @@ def map_model_to_tables():
         '_User__user_id': user_table.c.user_id,
         '_User__user_name': user_table.c.user_name,
         '_User__user_password': user_table.c.user_password,
-        '_User__user_reviews': relationship(Review, foreign_keys=[user_table.c.user_reviews])
     })
 
     mapper(Wishlist, wishlist_table, properties={
         '_Wishlist__user_id': relationship(User),
         '_Wishlist__game_id': relationship(Game)
     })
-
-
-map_model_to_tables()
