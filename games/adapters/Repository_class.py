@@ -1,3 +1,4 @@
+from pathlib import Path
 
 from games.adapters.datareader.csvdatareader import GameFileCSVReader
 from games.adapters.Abstract_class import AbstractRepository
@@ -207,8 +208,8 @@ class MemoryRepository(AbstractRepository):
         user_reviews = [review for review in self._reviews if review.user_id == user_id]
         return user_reviews
 
-    def delete_review(self, review_id: int):
-        self.reviews = [review for review in self._reviews if review.review_id != review_id]
+    # def delete_review(self, review_id: int):
+    #     self.reviews = [review for review in self._reviews if review.review_id != review_id]
 
     def form_review(self, review: Review):
         user = str(review.user)
@@ -220,20 +221,68 @@ class MemoryRepository(AbstractRepository):
         return the_review
 
 
+# def populate(repo: MemoryRepository):
+#     dir_name = os.path.dirname(os.path.abspath(__file__))
+#     games_file_name = os.path.join(dir_name, "data/games.csv")
+#     reader = GameFileCSVReader(games_file_name)
+#
+#     reader.read_csv_file()
+#
+#     games = reader.dataset_of_games
+#     genres = reader.dataset_of_genres
+#     publishers = reader.dataset_of_publishers
+#
+#     for game in games:
+#         repo.add_game(game)
+#     repo.add_genre_set(genres)
+#     repo.add_publisher_set(publishers)
 
 
-def populate(repo: MemoryRepository):
-    dir_name = os.path.dirname(os.path.abspath(__file__))
-    games_file_name = os.path.join(dir_name, "data/games.csv")
+def populate(data_path: Path, repo: AbstractRepository, database_mode: bool):
+    # # Load games into the repository.
+    # load_games(data_path, repo, database_mode)
+    #
+    # games_filename = str(data_path / "games.csv")
+    #
+    # for row in read_csv_file(games_filename):
+    #     try:
+    #         game_id = int(row[0])
+    #         title = row[1]
+    #         publisher = Publisher(row[16])
+    #         genre_names = row[18].split(",")
+    #
+    #         game = Game(game_id, title)
+    #
+    #         game.release_date = row[2]
+    #         game.price = float(row[3])
+    #         game.description = row[4]
+    #         game.image_url = row[7]
+    #
+    #         game.publisher = publisher
+    #
+    #         for genre_name in genre_names:
+    #             genre = Genre(genre_name.strip())
+    #             game.add_genre(genre)
+    #
+    #         # Add the Game to the repository.
+    #         repo.add_game(game)
+    #
+    #     except ValueError as e:
+    #         print(f"Skipping row due to invalid data: {e}")
+    #     except KeyError as e:
+    #         print(f"Skipping row due to missing key: {e}")
+    games_file_name = str(Path(data_path) / "games.csv")
+
     reader = GameFileCSVReader(games_file_name)
 
     reader.read_csv_file()
 
+    publishers = reader.dataset_of_publishers
     games = reader.dataset_of_games
     genres = reader.dataset_of_genres
-    publishers = reader.dataset_of_publishers
 
     for game in games:
         repo.add_game(game)
     repo.add_genre_set(genres)
     repo.add_publisher_set(publishers)
+
