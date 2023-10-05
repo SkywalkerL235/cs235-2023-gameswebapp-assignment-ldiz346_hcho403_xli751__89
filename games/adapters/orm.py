@@ -7,13 +7,12 @@ from games.domainmodel.model import Game, Publisher, Genre, User, Review, Wishli
 
 # global variable giving access to the MetaData (schema) information of the database
 metadata = MetaData()
-# mapper_registry = registry()
 
 publishers_table = Table(
     'publishers', metadata,
     # We only want to maintain those attributes that are in our domain model
     # For publisher, we only have name
-    Column('name', String(255), primary_key=True)  # nullable=False, unique=True)
+    Column('name', String(255), primary_key=True, nullable=False, unique=True)
 )
 
 games_table = Table(
@@ -39,6 +38,7 @@ user_table = Table(
     Column('user_id', Integer, primary_key=True, autoincrement=True),
     Column('user_name', String(20), unique=True, nullable=False),
     Column('user_password', String(20), nullable=False),
+    Column('user_reviews', String(255), ForeignKey('reviews.review_id'), nullable=True)
 )
 
 review_table = Table(
