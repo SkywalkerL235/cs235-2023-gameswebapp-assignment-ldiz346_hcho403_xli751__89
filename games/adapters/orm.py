@@ -17,7 +17,7 @@ publishers_table = Table(
 
 games_table = Table(
     'games', metadata,
-    Column('game_id', Integer, primary_key=True),
+    Column('game_id', Integer, primary_key=True, unique=True),
     Column('game_title', Text, nullable=False),
     Column('game_price', Float, nullable=False),
     Column('release_date', String(50), nullable=False),

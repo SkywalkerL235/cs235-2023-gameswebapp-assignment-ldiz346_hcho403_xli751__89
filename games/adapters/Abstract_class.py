@@ -32,7 +32,7 @@ class AbstractRepository(abc.ABC):
         raise NotImplementedError
 
     @abc.abstractmethod
-    def filter_by_genre(self, selected_genre: str) -> list[Game]:
+    def filter_by_genre(self, selected_genre) -> list[Game]:
         raise NotImplementedError
 
     @abc.abstractmethod

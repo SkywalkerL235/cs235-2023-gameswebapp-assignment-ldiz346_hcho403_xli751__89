@@ -1,7 +1,7 @@
 from abc import ABC
 from typing import List
 
-from sqlalchemy import func
+from sqlalchemy import func, or_
 from sqlalchemy.orm import scoped_session, session
 from sqlalchemy.orm.exc import NoResultFound
 
@@ -74,7 +74,7 @@ class SqlAlchemyRepository(AbstractRepository, ABC):
 
     # region Game_data
     def get_game_by_id(self, game_id: int) -> Game:
-        game = self._session_cm.session.query(Game).filter(Game._Game__game_id).one()
+        game = self._session_cm.session.query(Game).filter(Game._Game__game_id == game_id).one()
         return game
 
     def get_games(self) -> List[Game]:
@@ -85,12 +85,12 @@ class SqlAlchemyRepository(AbstractRepository, ABC):
         games = self._session_cm.session.query(Game).filter(Game._Game__game_title).all()
         return games
 
-    def get_game_description(self, game_id: int) -> Game:
-        game = None
+    def get_game_description(self, game_id: int) -> dict:
         the_game = None
         try:
             game = self._session_cm.session.query(
                 Game).filter(Game._Game__game_id == game_id).one()
+            print(game)
 
             list_of_genres = game.genres
             official_genre_string = ', '.join(part.genre_name for part in list_of_genres)
@@ -107,8 +107,6 @@ class SqlAlchemyRepository(AbstractRepository, ABC):
                 'publishers': game.publisher.publisher_name,
                 'date': game.release_date,
                 'genres': official_genre_string,
-                'reviews': game.reviews,
-                'reviews_count': len(game.reviews),
                 'id': game.game_id,
                 'about': game.description,
             }
@@ -132,9 +130,11 @@ class SqlAlchemyRepository(AbstractRepository, ABC):
         total_games = self._session_cm.session.query(Game).count()
         return total_games
 
-    def get_all_games(self) -> list[Game]:
+    def get_all_games(self):
         listofgames = []
-        games = self._session_cm.session.query(Game).order_by(Game._Game__game_id).all()
+
+        games = self._session_cm.session.query(Game).all()
+
         for game in games:
             try:
                 list_of_genres = game.genres
@@ -152,8 +152,6 @@ class SqlAlchemyRepository(AbstractRepository, ABC):
                     'publishers': game.publisher.publisher_name,
                     'date': game.release_date,
                     'genres': official_genre_string,
-                    'reviews': game.reviews,
-                    'reviews_count': len(game.reviews),
                     'id': game.game_id,
                     'about': game.description
                 }
@@ -164,9 +162,9 @@ class SqlAlchemyRepository(AbstractRepository, ABC):
         listofgames.sort(key=lambda x: x['name'])
         return listofgames
 
-    def filter_by_genre(self, selected_genre: str) -> list[Game]:
+    def filter_by_genre(self, selected_genre) -> list[Game]:
         listofgames = []
-        games = self._session_cm.session.query(Game).filter(Game._Game__genres == selected_genre).all()
+        games = self._session_cm.session.query(Game).filter(Game._Game__genres.any(func.lower(Genre._Genre__genre_name) == func.lower(selected_genre)))
         for game in games:
             try:
                 list_of_genres = game.genres
@@ -184,8 +182,6 @@ class SqlAlchemyRepository(AbstractRepository, ABC):
                     'publishers': game.publisher.publisher_name,
                     'date': game.release_date,
                     'genres': official_genre_string,
-                    'reviews': game.reviews,
-                    'reviews_count': len(game.reviews),
                     'id': game.game_id,
                     'about': game.description
                 }
@@ -203,10 +199,11 @@ class SqlAlchemyRepository(AbstractRepository, ABC):
         ilike_target = '%' + target + '%'
 
         for game in listofgames:
-            game_title = game.title
+            game_title = game['name']
 
             # case-insensitive search
-            if func.lower(game_title).like(func.lower(ilike_target)):
+            query = func.lower(game_title).like(func.lower(ilike_target))
+            if self._session_cm.session.query(Game).filter(or_(query)).count() > 0:
                 search_list.append(game)
 
         search_list.sort(key=lambda x: x['name'])
@@ -246,10 +243,11 @@ class SqlAlchemyRepository(AbstractRepository, ABC):
         ilike_target = '%' + target + '%'
 
         for game in listofgames:
-            game_publisher = game.publisher
+            game_publisher = game['publishers']
 
             # case-insensitive search
-            if func.lower(game_publisher).like(func.lower(ilike_target)):
+            query = func.lower(game_publisher).like(func.lower(ilike_target))
+            if self._session_cm.session.query(Game).filter(or_(query)).count() > 0:
                 search_list.append(game)
 
         search_list.sort(key=lambda x: x['name'])
@@ -259,8 +257,11 @@ class SqlAlchemyRepository(AbstractRepository, ABC):
 
     # region Genre_data
     def get_unique_genres(self) -> List[Genre]:
+        genre_names = []
         genres = self._session_cm.session.query(Genre).order_by(Genre._Genre__genre_name).all()
-        return genres
+        for genre in genres:
+            genre_names.append(genre.genre_name)
+        return genre_names
 
     def add_genre(self, genre: Genre):
         with self._session_cm as scm:
@@ -295,7 +296,7 @@ class SqlAlchemyRepository(AbstractRepository, ABC):
 
     def get_reviews_by_game(self, game: Game) -> list[Review]:
         game_id = game.game_id
-        reviews = self._session_cm.session.query(Review).filter(Review._Review__game_id == game_id).all()
+        reviews = self._session_cm.session.query(Review).filter(Game._Game__game_id == game_id).all()
         return reviews
 
     def get_reviews_by_user(self, user_id: int) -> list[Review]:
