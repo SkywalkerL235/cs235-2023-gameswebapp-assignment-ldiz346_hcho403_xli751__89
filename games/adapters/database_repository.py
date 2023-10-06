@@ -73,6 +73,7 @@ class SqlAlchemyRepository(AbstractRepository, ABC):
     # endregion
 
     # region Game_data
+
     def get_game_by_id(self, game_id: int) -> Game:
         game = self._session_cm.session.query(Game).filter(Game._Game__game_id == game_id).one()
         return game
@@ -212,6 +213,7 @@ class SqlAlchemyRepository(AbstractRepository, ABC):
     # endregion
 
     # region Publisher data
+
     def get_publishers(self) -> List[Publisher]:
         pass
 
@@ -256,6 +258,7 @@ class SqlAlchemyRepository(AbstractRepository, ABC):
     # endregion
 
     # region Genre_data
+
     def get_unique_genres(self) -> List[Genre]:
         genre_names = []
         genres = self._session_cm.session.query(Genre).order_by(Genre._Genre__genre_name).all()
@@ -315,6 +318,7 @@ class SqlAlchemyRepository(AbstractRepository, ABC):
     # endregion
 
     # region Wishlist_data
+
     def add_game_to_wishlist(self, username: str, game: Game):
         user = self.get_user(username)
         wishlist = Wishlist(user)
