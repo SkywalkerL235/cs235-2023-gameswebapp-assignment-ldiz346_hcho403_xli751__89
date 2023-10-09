@@ -36,7 +36,7 @@ genres_table = Table(
 user_table = Table(
     'users', metadata,
     Column('user_id', Integer, primary_key=True, autoincrement=True),
-    Column('user_name', String(20), unique=True, nullable=False),
+    Column('user_username', String(20), unique=True, nullable=False),
     Column('user_password', String(20), nullable=False),
 )
 
@@ -97,7 +97,7 @@ def map_model_to_tables():
 
     mapper(User, user_table, properties={
         '_User__user_id': user_table.c.user_id,
-        '_User__user_name': user_table.c.user_name,
+        '_User__user_username': user_table.c.user_username,
         '_User__user_password': user_table.c.user_password,
     })
 

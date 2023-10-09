@@ -60,13 +60,13 @@ class SqlAlchemyRepository(AbstractRepository, ABC):
             scm.session.merge(user)
             scm.commit()
 
-    def get_user(self, user_name):
+    def get_user(self, user_username):
         user = None
         try:
             user = self._session_cm.session.query(
-                User).filter(User._User__user_name == user_name).one()
+                User).filter(User._User__user_username == user_username).one()
         except NoResultFound:
-            print(f'User {user_name} was not found')
+            print(f'User {user_username} was not found')
 
         return user
 
