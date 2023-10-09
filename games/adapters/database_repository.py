@@ -64,7 +64,7 @@ class SqlAlchemyRepository(AbstractRepository, ABC):
         user = None
         try:
             user = self._session_cm.session.query(
-                User).filter(User._User__user_username == user_username).one()
+                User).filter(User.username == user_username).one()
         except NoResultFound:
             print(f'User {user_username} was not found')
 
