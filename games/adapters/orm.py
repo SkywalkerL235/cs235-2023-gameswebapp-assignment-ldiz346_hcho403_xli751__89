@@ -97,8 +97,8 @@ def map_model_to_tables():
 
     mapper(User, user_table, properties={
         '_User__user_id': user_table.c.user_id,
-        '_User__user_username': user_table.c.user_username,
-        '_User__user_password': user_table.c.user_password,
+        '_User__username': user_table.c.user_username,
+        '_User__password': user_table.c.user_password,
     })
 
     mapper(Wishlist, wishlist_table, properties={
