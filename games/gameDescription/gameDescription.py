@@ -40,6 +40,23 @@ def add_review(gameToDisplay):
         user_rating = int(request.form['rating_form'])
         user_comment = request.form['comment_form']
 
+        if not isinstance(user_rating, int) or not 0 <= user_rating <= 5:
+            the_game = services.get_game_description(repo.repo_instance, game_id)
+            unique_genres = services.get_unique_genres(repo.repo_instance)
+            game_comments = services.get_game_comments(repo.repo_instance, game_id)
+
+            review_list = []
+
+            for comment in game_comments:
+                current = services.form_review(repo.repo_instance, comment)
+                review_list.append(current)
+
+            return render_template(
+                'gameDescription.html',
+                gameToDisplay=the_game,
+                unique_genres=unique_genres,
+                reviews=review_list)
+
         services.add_review(repo.repo_instance, the_game_by_id, user_rating, user_comment, user_details)  # Or however you would handle this
 
     if 'username' not in session:

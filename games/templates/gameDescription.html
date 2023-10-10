@@ -41,8 +41,8 @@
                         <div class="comments">
 
                             <form action="{{ url_for('gameDes_bp.add_review', gameToDisplay=gameToDisplay.id) }}" method="POST" id="rating_form">
-                                Rating: <input type="text" name="rating_form" placeholder="Enter your rating">
-                                <textarea id="comment_form" rows="5" cols="70" name="comment_form" placeholder="Enter your comment"></textarea>
+                                Rating: <input type="text" name="rating_form" placeholder="Enter your rating from 0 to 5">
+                                <textarea id="comment_form" rows="5" name="comment_form" placeholder="Enter your comment"></textarea>
                                 <button type="submit">Submit</button>
                             </form>
 
