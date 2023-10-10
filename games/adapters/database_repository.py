@@ -1,11 +1,12 @@
 from abc import ABC
 from typing import List
 
-from sqlalchemy import func, or_
+from sqlalchemy import func, or_, insert, engine
 from sqlalchemy.orm import scoped_session, session
 from sqlalchemy.orm.exc import NoResultFound
 
 from games.adapters.Abstract_class import AbstractRepository
+from games.adapters.orm import review_table
 from games.adapters.utils import search_string
 from games.domainmodel.model import Game, Publisher, Genre, User, Review, Wishlist
 
@@ -91,7 +92,6 @@ class SqlAlchemyRepository(AbstractRepository, ABC):
         try:
             game = self._session_cm.session.query(
                 Game).filter(Game._Game__game_id == game_id).one()
-            print(game)
 
             list_of_genres = game.genres
             official_genre_string = ', '.join(part.genre_name for part in list_of_genres)
