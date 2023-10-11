@@ -60,8 +60,13 @@ game_genres_table = Table(
 wishlist_table = Table(
     'wishlists', metadata,
     Column('id', Integer, primary_key=True, autoincrement=True),
-    Column('user_id', Integer, ForeignKey('users.user_id'), nullable=False),
-    Column('game_id', Integer, ForeignKey('games.game_id'), nullable=False),
+    Column('user_id', Integer, ForeignKey('users.user_id'),unique=True, nullable=False,),
+)
+game_wishlist_table = Table(
+    'wishlist_game', metadata,
+    Column('id', Integer, primary_key=True, autoincrement=True),
+    Column('game_id', Integer, ForeignKey('games.game_id')),
+    Column('wishlist_id', Integer, ForeignKey('wishlists.id')),  # This should reference the primary key of wishlists table
 )
 
 
@@ -99,9 +104,17 @@ def map_model_to_tables():
         '_User__user_id': user_table.c.user_id,
         '_User__username': user_table.c.user_username,
         '_User__password': user_table.c.user_password,
+        '_User__wishlist': relationship("Wishlist", uselist=False, back_populates="_Wishlist__user"),
+        # one-to-one relationship with Wishlist
     })
 
     mapper(Wishlist, wishlist_table, properties={
-        '_Wishlist__user_id': relationship(User),
-        '_Wishlist__game_id': relationship(Game)
+        '_Wishlist__id': wishlist_table.c.id,
+        '_Wishlist__user': relationship("User", back_populates="_User__wishlist"),  # corresponding back_populates
+        '_Wishlist__list_of_games': relationship(
+            Game,
+            secondary=game_wishlist_table,
+            primaryjoin=(wishlist_table.c.id == game_wishlist_table.c.wishlist_id),
+            secondaryjoin=(games_table.c.game_id == game_wishlist_table.c.game_id),
+        )
     })
