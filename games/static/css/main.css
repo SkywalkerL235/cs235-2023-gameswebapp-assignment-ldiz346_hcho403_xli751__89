@@ -90,6 +90,43 @@ h3 {
     margin-top: 6px;
 }
 
+.comments input {
+    border-radius: 10px;
+    border-color: #dae0e0;
+    border-width: 2px;
+    box-shadow: 3px 3px 20px 0 black;
+    padding: 5px;
+    background-color: #232424;
+    margin: auto;
+    margin-top: 20px;
+    margin-bottom: 5px;
+    color: #dae0e0;
+    font-size: 17px;
+    font-family: 'Courier';
+    display: block;
+    width: 70%;
+}
+
+.comments textarea {
+    border-radius: 10px;
+    border-color: #dae0e0;
+    border-width: 2px;
+    box-shadow: 3px 3px 20px 0 black;
+    padding: 5px;
+    background-color: #232424;
+    margin: auto;
+    margin-top: 6px;
+    color: #dae0e0;
+    font-size: 17px;
+    font-family: 'Courier';
+    display: block;
+    width: 70%;
+}
+
+.comments button {
+    right: 100px;
+}
+
 .amp {
     padding-right: 50px;
 }

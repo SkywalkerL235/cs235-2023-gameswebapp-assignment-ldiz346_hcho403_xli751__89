@@ -41,7 +41,8 @@
                         <div class="comments">
 
                             <form action="{{ url_for('gameDes_bp.add_review', gameToDisplay=gameToDisplay.id) }}" method="POST" id="rating_form">
-                                Rating: <input type="text" name="rating_form" placeholder="Enter your rating from 0 to 5">
+                                <input type="text" name="rating_form" placeholder="Enter your rating from 0 to 5">
+                                <br>
                                 <textarea id="comment_form" rows="5" name="comment_form" placeholder="Enter your comment"></textarea>
                                 <button type="submit">Submit</button>
                             </form>
@@ -50,7 +51,7 @@
 
                             {% for comment in reviews %}
                             <div class="comment_block">
-                                <p>{{ comment.user_name }} ({{ comment.rating }}/5) :  {{ comment.comment }}</p>
+                                <p><span style="color: #93edec; ">{{ comment.user_name }}</span> ({{ comment.rating }}/5) :  {{ comment.comment }}</p>
                             </div>
                             {% endfor %}
                         </div>

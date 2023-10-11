@@ -60,7 +60,7 @@ game_genres_table = Table(
 wishlist_table = Table(
     'wishlists', metadata,
     Column('id', Integer, primary_key=True, autoincrement=True),
-    Column('user_id', Integer, ForeignKey('users.user_id'),unique=True, nullable=False,),
+    Column('user_id', Integer, ForeignKey('users.user_id'), unique=True, nullable=False,),
 )
 game_wishlist_table = Table(
     'wishlist_game', metadata,
@@ -106,13 +106,13 @@ def map_model_to_tables():
         '_User__username': user_table.c.user_username,
         '_User__password': user_table.c.user_password,
         '_User__reviews': relationship(Review, back_populates='_Review__user'),
-        '_User__wishlist': relationship(Wishlist, uselist=False, back_populates="_Wishlist__user"),
+        '_User__wishlist': relationship(Wishlist, uselist=False, back_populates='_Wishlist__user'),
         # one-to-one relationship with Wishlist
     })
 
     mapper(Wishlist, wishlist_table, properties={
         '_Wishlist__id': wishlist_table.c.id,
-        '_Wishlist__user': relationship(User, back_populates="_User__wishlist"),  # corresponding back_populates
+        '_Wishlist__user': relationship(User, back_populates='_User__wishlist'),  # corresponding back_populates
         '_Wishlist__list_of_games': relationship(
             Game,
             secondary=game_wishlist_table,
