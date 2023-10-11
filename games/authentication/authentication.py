@@ -39,7 +39,7 @@ def register():
         # add more here if needed
     )
 
-
+#blablah
 @authentication_blueprint.route('/login', methods=['GET', 'POST'])
 def login():
     form = LoginForm()

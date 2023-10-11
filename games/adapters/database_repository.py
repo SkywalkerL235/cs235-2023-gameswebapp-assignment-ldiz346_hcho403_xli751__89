@@ -335,17 +335,15 @@ class SqlAlchemyRepository(AbstractRepository, ABC):
         session.delete(wishlist)
 
     def get_wishlist(self, username: str) -> Wishlist:
-        user_id = self._session_cm.session.query(User).filter(User._User__user_name == username)
         user = self.get_user(username)
-        games = self._session_cm.session.query(Game).filter(Wishlist._Wishlist__user_id == user_id).all
         wishlist = Wishlist(user)
-        for game in games:
+        for game in wishlist:
             wishlist.add_game(game)
         return wishlist
 
     def game_in_wishlist(self, username: str, game: Game) -> bool:
-        user_id = self._session_cm.session.query(User).filter(User._User__user_name == username)
-        games = self._session_cm.session.query(Wishlist).filter(Wishlist._Wishlist__user_id == user_id).all
+        user_id = self._session_cm.session.query(User).filter(User.username == username)
+        games = self._session_cm.session.query(Wishlist).filter(Wishlist._Wishlist__user_id == user_id).all()
 
         if game in games:
             return True
