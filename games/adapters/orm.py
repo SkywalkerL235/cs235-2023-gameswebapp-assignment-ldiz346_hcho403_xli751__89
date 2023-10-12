@@ -38,6 +38,7 @@ user_table = Table(
     Column('user_id', Integer, primary_key=True, autoincrement=True),
     Column('user_username', String(20), unique=True, nullable=False),
     Column('user_password', String(20), nullable=False),
+    Column('wishlist_id', String(20)),
 )
 
 review_table = Table(
