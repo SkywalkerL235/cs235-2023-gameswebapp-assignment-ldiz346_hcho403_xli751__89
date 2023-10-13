@@ -48,8 +48,11 @@ def add_to_wishlist(game_id):
 
     username = session.get('username')
 
+    user = services.get_user_details_by_username(username, repo.repo_instance)
+    wishlist = services.get_wishlist(username, repo.repo_instance)
+    wishlist.user = user
    # if not services.game_in_wishlist(username, repo.repo_instance,game_id):
-    services.add_game_to_wishlist(username, repo.repo_instance, game)
+    services.add_game_to_wishlist(username, repo.repo_instance, game, wishlist)
     flash('Game added to wishlist!', 'success')
     #else:
         #flash('Game already in wishlist!', 'warning')

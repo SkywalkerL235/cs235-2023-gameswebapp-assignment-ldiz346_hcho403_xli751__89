@@ -38,7 +38,6 @@ user_table = Table(
     Column('user_id', Integer, primary_key=True, autoincrement=True),
     Column('user_username', String(20), unique=True, nullable=False),
     Column('user_password', String(20), nullable=False),
-    Column('wishlist_id', String(20)),
 )
 
 review_table = Table(
@@ -68,6 +67,8 @@ game_wishlist_table = Table(
     Column('id', Integer, primary_key=True, autoincrement=True),
     Column('game_id', Integer, ForeignKey('games.game_id')),
     Column('wishlist_id', Integer, ForeignKey('wishlists.id')),  # This should reference the primary key of wishlists table
+    #Column('user_id', Integer, ForeignKey('users.user_id')),
+
 )
 
 
@@ -107,17 +108,17 @@ def map_model_to_tables():
         '_User__username': user_table.c.user_username,
         '_User__password': user_table.c.user_password,
         '_User__reviews': relationship(Review, back_populates='_Review__user'),
-        '_User__wishlist': relationship(Wishlist, uselist=False, back_populates='_Wishlist__user'),
+        #'_User__wishlist': relationship(Wishlist, uselist=False, back_populates='_Wishlist__user'),
         # one-to-one relationship with Wishlist
     })
 
     mapper(Wishlist, wishlist_table, properties={
         '_Wishlist__id': wishlist_table.c.id,
-        '_Wishlist__user': relationship(User, back_populates='_User__wishlist'),  # corresponding back_populates
+        '_Wishlist__user': relationship(User),
         '_Wishlist__list_of_games': relationship(
             Game,
             secondary=game_wishlist_table,
-            primaryjoin=(wishlist_table.c.id == game_wishlist_table.c.wishlist_id),
-            secondaryjoin=(games_table.c.game_id == game_wishlist_table.c.game_id),
+            #primaryjoin=(wishlist_table.c.id == game_wishlist_table.c.wishlist_id),
+            #secondaryjoin=(games_table.c.game_id == game_wishlist_table.c.game_id),
         )
     })

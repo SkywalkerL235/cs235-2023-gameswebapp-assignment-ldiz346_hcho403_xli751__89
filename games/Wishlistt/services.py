@@ -1,12 +1,12 @@
 from games.adapters.Abstract_class import AbstractRepository
-from games.domainmodel.model import Game
+from games.domainmodel.model import Game, Wishlist
 
 
 #def get_all_games_in_wishlist(repo: AbstractRepository):
    # return repo.get_all_games_in_wishlist()
 
-def add_game_to_wishlist(username, repo: AbstractRepository, game: Game):
-    return repo.add_game_to_wishlist(username, game)
+def add_game_to_wishlist(username, repo: AbstractRepository, game: Game, wishlist: Wishlist):
+    return repo.add_game_to_wishlist(username, game, wishlist)
 
 
 def remove_game_from_wishlist(repo: AbstractRepository, game_id: int):

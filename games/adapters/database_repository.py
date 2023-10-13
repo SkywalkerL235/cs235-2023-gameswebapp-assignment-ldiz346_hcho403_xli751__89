@@ -319,13 +319,10 @@ class SqlAlchemyRepository(AbstractRepository, ABC):
 
     # region Wishlist_data
 
-    def add_game_to_wishlist(self, username: str, game: Game):
-        user = self.get_user(username)
-        wishlist = Wishlist(user)
-        wishlist.add_game(game)
-
+    def add_game_to_wishlist(self, username: str, game: Game, wishlist):
         with self._session_cm as scm:
-            scm.session.add(wishlist)
+            wishlist.add_game(game)
+            scm.session.merge(wishlist)
             scm.commit()
 
     def remove_game_from_wishlist(self, username: str, game: Game):
@@ -336,9 +333,7 @@ class SqlAlchemyRepository(AbstractRepository, ABC):
 
     def get_wishlist(self, username: str) -> Wishlist:
         user = self.get_user(username)
-        wishlist = Wishlist(user)
-        for game in wishlist:
-            wishlist.add_game(game)
+        wishlist = self._session_cm.session.query(Wishlist).filter(Wishlist._Wishlist__user == user).one()
         return wishlist
 
     def game_in_wishlist(self, username: str, game: Game) -> bool:

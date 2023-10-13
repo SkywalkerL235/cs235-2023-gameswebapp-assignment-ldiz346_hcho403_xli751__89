@@ -1,3 +1,4 @@
+
 from datetime import datetime
 
 
@@ -209,6 +210,7 @@ class Game:
         return self.__game_id < other.game_id
 
 
+
 class User:
     def __init__(self, username: str, password: str):
         if not isinstance(username, str) or username.strip() == "":
@@ -335,7 +337,6 @@ class Review:
             return False
         return other.user == self.__user and other.game == self.__game and other.comment == self.__comment
 
-
 class Wishlist:
     def __init__(self, user: User):
         if not isinstance(user, User):
@@ -346,6 +347,9 @@ class Wishlist:
 
     def list_of_games(self):
         return self.__list_of_games
+    @property
+    def user(self) -> User:
+        return self.__user
 
     def size(self):
         size_wishlist = len(self.__list_of_games)
